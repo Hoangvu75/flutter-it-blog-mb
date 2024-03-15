@@ -22,6 +22,7 @@ SignInTokens _$SignInTokensFromJson(Map<String, dynamic> json) {
 mixin _$SignInTokens {
   String? get accessToken => throw _privateConstructorUsedError;
   String? get refreshToken => throw _privateConstructorUsedError;
+  Profile? get profile => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,9 @@ abstract class $SignInTokensCopyWith<$Res> {
           SignInTokens value, $Res Function(SignInTokens) then) =
       _$SignInTokensCopyWithImpl<$Res, SignInTokens>;
   @useResult
-  $Res call({String? accessToken, String? refreshToken});
+  $Res call({String? accessToken, String? refreshToken, Profile? profile});
+
+  $ProfileCopyWith<$Res>? get profile;
 }
 
 /// @nodoc
@@ -53,6 +56,7 @@ class _$SignInTokensCopyWithImpl<$Res, $Val extends SignInTokens>
   $Res call({
     Object? accessToken = freezed,
     Object? refreshToken = freezed,
+    Object? profile = freezed,
   }) {
     return _then(_value.copyWith(
       accessToken: freezed == accessToken
@@ -63,7 +67,23 @@ class _$SignInTokensCopyWithImpl<$Res, $Val extends SignInTokens>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      profile: freezed == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as Profile?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProfileCopyWith<$Res>? get profile {
+    if (_value.profile == null) {
+      return null;
+    }
+
+    return $ProfileCopyWith<$Res>(_value.profile!, (value) {
+      return _then(_value.copyWith(profile: value) as $Val);
+    });
   }
 }
 
@@ -75,7 +95,10 @@ abstract class _$$SignInTokensImplCopyWith<$Res>
       __$$SignInTokensImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? accessToken, String? refreshToken});
+  $Res call({String? accessToken, String? refreshToken, Profile? profile});
+
+  @override
+  $ProfileCopyWith<$Res>? get profile;
 }
 
 /// @nodoc
@@ -91,6 +114,7 @@ class __$$SignInTokensImplCopyWithImpl<$Res>
   $Res call({
     Object? accessToken = freezed,
     Object? refreshToken = freezed,
+    Object? profile = freezed,
   }) {
     return _then(_$SignInTokensImpl(
       accessToken: freezed == accessToken
@@ -101,6 +125,10 @@ class __$$SignInTokensImplCopyWithImpl<$Res>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      profile: freezed == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as Profile?,
     ));
   }
 }
@@ -108,7 +136,7 @@ class __$$SignInTokensImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SignInTokensImpl implements _SignInTokens {
-  _$SignInTokensImpl({this.accessToken, this.refreshToken});
+  _$SignInTokensImpl({this.accessToken, this.refreshToken, this.profile});
 
   factory _$SignInTokensImpl.fromJson(Map<String, dynamic> json) =>
       _$$SignInTokensImplFromJson(json);
@@ -117,10 +145,12 @@ class _$SignInTokensImpl implements _SignInTokens {
   final String? accessToken;
   @override
   final String? refreshToken;
+  @override
+  final Profile? profile;
 
   @override
   String toString() {
-    return 'SignInTokens(accessToken: $accessToken, refreshToken: $refreshToken)';
+    return 'SignInTokens(accessToken: $accessToken, refreshToken: $refreshToken, profile: $profile)';
   }
 
   @override
@@ -131,12 +161,14 @@ class _$SignInTokensImpl implements _SignInTokens {
             (identical(other.accessToken, accessToken) ||
                 other.accessToken == accessToken) &&
             (identical(other.refreshToken, refreshToken) ||
-                other.refreshToken == refreshToken));
+                other.refreshToken == refreshToken) &&
+            (identical(other.profile, profile) || other.profile == profile));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken);
+  int get hashCode =>
+      Object.hash(runtimeType, accessToken, refreshToken, profile);
 
   @JsonKey(ignore: true)
   @override
@@ -155,7 +187,8 @@ class _$SignInTokensImpl implements _SignInTokens {
 abstract class _SignInTokens implements SignInTokens {
   factory _SignInTokens(
       {final String? accessToken,
-      final String? refreshToken}) = _$SignInTokensImpl;
+      final String? refreshToken,
+      final Profile? profile}) = _$SignInTokensImpl;
 
   factory _SignInTokens.fromJson(Map<String, dynamic> json) =
       _$SignInTokensImpl.fromJson;
@@ -164,6 +197,8 @@ abstract class _SignInTokens implements SignInTokens {
   String? get accessToken;
   @override
   String? get refreshToken;
+  @override
+  Profile? get profile;
   @override
   @JsonKey(ignore: true)
   _$$SignInTokensImplCopyWith<_$SignInTokensImpl> get copyWith =>

@@ -10,16 +10,37 @@ import '../responses/base.response.dart';
 class AuthRepository {
   final AuthApiClient apiClient = AuthApiClient();
 
-  Future<SignInTokens> signIn(SignRequest request) async {
+  Future<BaseResponse<SignInTokens?>> signIn(SignRequest request) async {
     final response = await apiClient.api.signIn(request.toMap());
+    var newResponse = BaseResponse<SignInTokens?>(
+      code: response.code,
+      success: response.success,
+      data: null,
+      error: response.error,
+    );
+    if (response.success == false) {
+      return newResponse;
+    }
     SignInTokens tokens = response.parse(SignInTokens.fromJson);
-    return tokens;
+    newResponse.data = tokens;
+    return newResponse;
   }
 
-  Future<SignInTokens> googleSignIn(GoogleSignInRequest request) async {
+  Future<BaseResponse<SignInTokens?>> googleSignIn(
+      GoogleSignInRequest request) async {
     final response = await apiClient.api.googleSignIn(request.toMap());
+    var newResponse = BaseResponse<SignInTokens?>(
+      code: response.code,
+      success: response.success,
+      data: null,
+      error: response.error,
+    );
+    if (response.success == false) {
+      return newResponse;
+    }
     SignInTokens tokens = response.parse(SignInTokens.fromJson);
-    return tokens;
+    newResponse.data = tokens;
+    return newResponse;
   }
 
   Future<BaseResponse> signUp(SignRequest request) async {

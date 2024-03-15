@@ -5,7 +5,7 @@ part 'base.response.g.dart';
 @JsonSerializable()
 class BaseResponse<T> {
   int? code;
-  dynamic data;
+  T? data;
   bool? success;
   String? error;
 
@@ -15,11 +15,11 @@ class BaseResponse<T> {
   Map<String, dynamic> toJson() => _$BaseResponseToJson(this);
 
   T parse(T Function(Map<String, dynamic> map) jsonConvertor) {
-    return jsonConvertor(data);
+    return jsonConvertor(data as dynamic);
   }
 
   List<T> parseList(T Function(Map<String, dynamic> map) jsonConvertor) {
-    List items = data;
+    List items = data as dynamic;
     return items.map((element) {
       return jsonConvertor(element);
     }).toList();

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -89,17 +90,30 @@ class SignInPage extends StatelessWidget {
   }
 
   static Future<void> signInWithGoogle() async {
-    var googleSignIn = (Platform.isIOS)
-        ? GoogleSignIn(clientId: Constants.GOOGLE_IOS_CLIENT_ID)
-        : GoogleSignIn();
-    var account = await googleSignIn.signIn();
-    var authRepository = getIt.get<AuthRepository>();
-    var email = account?.email;
-    if (email == null) {
-      throw Exception("Email is null");
+    try {
+      var googleSignIn = (Platform.isIOS)
+          ? GoogleSignIn(clientId: Constants.GOOGLE_IOS_CLIENT_ID)
+          : GoogleSignIn();
+      var account = await googleSignIn.signIn();
+      var authRepository = getIt.get<AuthRepository>();
+      var email = account?.email;
+      if (email == null) {
+        throw Exception("Email is null");
+      }
+      var signInRes = await authRepository.googleSignIn(
+        GoogleSignInRequest(email: email),
+      );
+      if (signInRes.success == true) {
+        if (signInRes.data?.profile == null) {
+          AppPages.navKey.currentContext?.push(Routes.CREATE_PROFILE);
+        }
+      } else {
+        EasyLoading.showError(signInRes.error ?? "Sign up failed");
+      }
+    } catch (e) {
+      EasyLoading.showError(e.toString());
+    } finally {
+      EasyLoading.dismiss();
     }
-    var tokens = await authRepository.googleSignIn(
-      GoogleSignInRequest(email: email),
-    );
   }
 }

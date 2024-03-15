@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/get_it.dart';
 import '../../../core/extensions/context.extension.dart';
 import '../../../domain/repository/auth.repository.dart';
 import '../../../domain/requests/sign.request.dart';
+import '../../../infrastructure/routing/app_pages.dart';
 import '../../../infrastructure/state/is_focus_sign_form.state.dart';
-import '../../widgets/app_green_button.dart';
-import '../../widgets/sign_text_field.dart';
+import '../../widgets/green_button.dart';
+import '../../widgets/underline_text_field.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -38,50 +40,49 @@ class _SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SignTextField(
+        UnderlineTextField(
           controller: emailController,
           focusNode: emailFocusNode,
           hint: "Email",
         ),
         const SizedBox(height: 12),
-        SignTextField(
+        UnderlineTextField(
           controller: passwordController,
           focusNode: passwordFocusNode,
           hint: "Password",
           obscureText: true,
         ),
         const SizedBox(height: 40),
-        AppGreenButton(
+        GreenButton(
           title: "Sign in",
           onTap: () async {
-            var formValidation = onValidateEmailPassword(
-              email: emailController.text,
-              password: passwordController.text,
-            );
-            if (formValidation != null) {
-              return EasyLoading.showError(formValidation);
+            try {
+              var formValidation = onValidateEmailPassword(
+                email: emailController.text,
+                password: passwordController.text,
+              );
+              if (formValidation != null) {
+                return EasyLoading.showError(formValidation);
+              }
+              var authRepository = getIt.get<AuthRepository>();
+              var signRequest = SignRequest(
+                email: emailController.text,
+                password: passwordController.text,
+              );
+              EasyLoading.show();
+              var signInRes = await authRepository.signIn(signRequest);
+              if (signInRes.success == true) {
+                if (signInRes.data?.profile == null) {
+                  AppPages.navKey.currentContext?.go(Routes.CREATE_PROFILE);
+                }
+              } else {
+                EasyLoading.showError(signInRes.error ?? "Sign up failed");
+              }
+            } catch (e) {
+              EasyLoading.showError("Sign up failed. $e");
+            } finally {
+              EasyLoading.dismiss();
             }
-            var authRepository = getIt.get<AuthRepository>();
-            var signRequest = SignRequest(
-              email: emailController.text,
-              password: passwordController.text,
-            );
-            EasyLoading.show();
-            var signUpRes = await authRepository.signIn(signRequest);
-            EasyLoading.dismiss();
-            // if (signUpRes.success == true) {
-            //   EasyLoading.showSuccess(
-            //     "Sign up successfully\nYou can sign in now",
-            //     duration: const Duration(seconds: 3),
-            //   ).then((value) {
-            //     context.pop();
-            //   });
-            // } else {
-            //   await EasyLoading.showError(
-            //     signUpRes.error ?? "Sign up failed by undefined error",
-            //     duration: const Duration(seconds: 3),
-            //   );
-            // }
           },
         )
       ],

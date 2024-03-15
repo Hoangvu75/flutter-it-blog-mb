@@ -7,7 +7,7 @@ part of 'is_focus_sign_form.state.dart';
 // **************************************************************************
 
 String _$isFocusSignFormStateHash() =>
-    r'58fbd058f1e05009a38deb2917708d161bedb380';
+    r'edcd063985f5ea69bc10202a2b374ae21e96bd1c';
 
 /// See also [IsFocusSignFormState].
 @ProviderFor(IsFocusSignFormState)

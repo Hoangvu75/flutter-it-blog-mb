@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/text.ui.dart';
 
-class AppGreenButton extends StatelessWidget {
+class GreenButton extends StatelessWidget {
   final String title;
   final Function() onTap;
 
-  const AppGreenButton({
+  const GreenButton({
     super.key,
     required this.title,
     required this.onTap,

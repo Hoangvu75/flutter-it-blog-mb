@@ -10,8 +10,8 @@ import '../../../core/ui/text.ui.dart';
 import '../../../domain/repository/auth.repository.dart';
 import '../../../domain/requests/sign.request.dart';
 import '../../../infrastructure/state/is_focus_sign_form.state.dart';
-import '../../widgets/app_green_button.dart';
-import '../../widgets/sign_text_field.dart';
+import '../../widgets/green_button.dart';
+import '../../widgets/underline_text_field.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -46,57 +46,60 @@ class _SignUpFormState extends State<SignUpForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SignTextField(
+        UnderlineTextField(
           controller: emailController,
           focusNode: emailFocusNode,
           hint: "Email",
         ),
         const SizedBox(height: 12),
-        SignTextField(
+        UnderlineTextField(
           controller: passwordController,
           focusNode: passwordFocusNode,
           hint: "Password",
           obscureText: true,
         ),
         const SizedBox(height: 12),
-        SignTextField(
+        UnderlineTextField(
           controller: confirmPasswordController,
           focusNode: confirmPasswordFocusNode,
           hint: "Confirm password",
           obscureText: true,
         ),
         const SizedBox(height: 40),
-        AppGreenButton(
+        GreenButton(
           title: "Sign up",
           onTap: () async {
-            var formValidation = onValidateEmailPassword(
-              email: emailController.text,
-              password: passwordController.text,
-              confirmPassword: confirmPasswordController.text,
-            );
-            if (formValidation != null) {
-              return EasyLoading.showError(formValidation);
-            }
-            var authRepository = getIt.get<AuthRepository>();
-            var signRequest = SignRequest(
-              email: emailController.text,
-              password: passwordController.text,
-            );
-            EasyLoading.show();
-            var signUpRes = await authRepository.signUp(signRequest);
-            EasyLoading.dismiss();
-            if (signUpRes.success == true) {
-              EasyLoading.showSuccess(
-                "Sign up successfully\nYou can sign in now",
-                duration: const Duration(seconds: 3),
-              ).then((value) {
-                context.pop();
-              });
-            } else {
-              await EasyLoading.showError(
-                signUpRes.error ?? "Sign up failed by undefined error",
-                duration: const Duration(seconds: 3),
+            try {
+              var formValidation = onValidateEmailPassword(
+                email: emailController.text,
+                password: passwordController.text,
+                confirmPassword: confirmPasswordController.text,
               );
+              if (formValidation != null) {
+                return EasyLoading.showError(formValidation);
+              }
+              var authRepository = getIt.get<AuthRepository>();
+              var signRequest = SignRequest(
+                email: emailController.text,
+                password: passwordController.text,
+              );
+              EasyLoading.show();
+              var signUpRes = await authRepository.signUp(signRequest);
+              if (signUpRes.success == true) {
+                EasyLoading.showSuccess(
+                  "Sign up successfully\nYou can sign in now",
+                ).then((value) {
+                  context.pop();
+                });
+              } else {
+                await EasyLoading.showError(
+                  signUpRes.error ?? "Sign up failed by undefined error",
+                );
+              }
+            } catch (e) {
+              EasyLoading.showError("Sign up failed $e");
+            } finally {
+              EasyLoading.dismiss();
             }
           },
         ),

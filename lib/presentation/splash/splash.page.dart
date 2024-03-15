@@ -16,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       FlutterNativeSplash.remove();
-      context.go(Routes.SIGN_IN);
+      context.go(Routes.CREATE_PROFILE);
     });
     super.initState();
   }

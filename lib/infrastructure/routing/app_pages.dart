@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
+import '../../presentation/create_profile/create_profile.page.dart';
 import '../../presentation/email_sign_in/email_sign_in.page.dart';
 import '../../presentation/email_sign_up/email_sign_up.page.dart';
 import '../../presentation/sign_in/sign_in.page.dart';
@@ -20,6 +21,7 @@ class AppPages {
       _normalRoute(path: Routes.SIGN_IN, page: const SignInPage()),
       _swipeableRoute(path: Routes.EMAIL_SIGN_UP, page: const EmailSignUpPage()),
       _swipeableRoute(path: Routes.EMAIL_SIGN_IN, page: const EmailSignInPage()),
+      _normalRoute(path: Routes.CREATE_PROFILE, page: const CreateProfilePage()),
     ],
   );
 
