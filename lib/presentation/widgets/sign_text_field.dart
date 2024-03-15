@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/ui/color.ui.dart';
-import '../../../core/ui/text.ui.dart';
+import '../../core/ui/color.ui.dart';
+import '../../core/ui/text.ui.dart';
 
-class SignUpTextField extends StatelessWidget {
+class SignTextField extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final String hint;
   final bool obscureText;
 
-  const SignUpTextField({
+  const SignTextField({
     super.key,
     required this.controller,
     required this.focusNode,

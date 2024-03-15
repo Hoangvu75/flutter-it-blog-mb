@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/ui/screen.ui.dart';
-import '../../../generated/assets.dart';
-import '../../../infrastructure/state/is_focus_sign_form.state.dart';
+import '../../core/ui/screen.ui.dart';
+import '../../generated/assets.dart';
+import '../../infrastructure/state/is_focus_sign_form.state.dart';
 
 class AppLogo extends StatelessWidget {
   const AppLogo({super.key});

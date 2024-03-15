@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/screen.ui.dart';
 import '../../core/ui/text.ui.dart';
-import '../widgets/sign_up_terms.dart';
 import '../widgets/app_logo.dart';
-import 'components/sign_up_form.dart';
+import '../widgets/sign_in_help_and_terms.dart';
+import 'components/sign_in_form.dart';
 
-class EmailSignUpPage extends StatelessWidget {
-  const EmailSignUpPage({super.key});
+class EmailSignInPage extends StatelessWidget {
+  const EmailSignInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +28,7 @@ class EmailSignUpPage extends StatelessWidget {
                 const AppLogo(),
                 const SizedBox(height: 32),
                 Text(
-                  "CREATE YOUR ACCOUNT",
-                  style: textLargeBody.copyWith(
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  "What's your\nemail?",
+                  "Sign in with\nyour email",
                   style: textLargeHeader.copyWith(
                     fontWeight: FontWeight.w400,
                   ),
@@ -47,11 +40,11 @@ class EmailSignUpPage extends StatelessWidget {
                   style: textLargeBody,
                 ),
                 const SizedBox(height: 16),
-                const SignUpForm(),
+                const SignInForm(),
                 const Spacer(),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: SignUpTerms(),
+                  child: SignInHelpAndTerms(),
                 ),
                 const SizedBox(height: 32)
               ],

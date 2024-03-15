@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/ui/color.ui.dart';
-import '../../../core/ui/text.ui.dart';
+import '../../core/ui/color.ui.dart';
+import '../../core/ui/text.ui.dart';
 
-class SignUpButton extends StatelessWidget {
+class AppGreenButton extends StatelessWidget {
+  final String title;
   final Function() onTap;
 
-  const SignUpButton({super.key, required this.onTap});
+  const AppGreenButton({
+    super.key,
+    required this.title,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ class SignUpButton extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  "Sign up",
+                  title,
                   style: textLargeBody.copyWith(
                     color: colorSecondary,
                     fontWeight: FontWeight.bold,
