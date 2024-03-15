@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/ui/color.ui.dart';
-import '../../../core/ui/text.ui.dart';
+import '../../core/ui/color.ui.dart';
+import '../../core/ui/text.ui.dart';
 
 class SignUpTerms extends StatelessWidget {
   const SignUpTerms({super.key});
@@ -20,6 +20,8 @@ class SignUpTerms extends StatelessWidget {
             text: "Terms of Service",
             style: TextStyle(
               decoration: TextDecoration.underline,
+              decorationColor: colorGreen,
+              color: colorGreen,
             ),
           ),
           TextSpan(
@@ -29,6 +31,8 @@ class SignUpTerms extends StatelessWidget {
             text: "Privacy Policy",
             style: TextStyle(
               decoration: TextDecoration.underline,
+              decorationColor: colorGreen,
+              color: colorGreen,
             ),
           ),
           TextSpan(

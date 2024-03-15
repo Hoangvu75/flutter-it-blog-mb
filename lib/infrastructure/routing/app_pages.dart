@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
+import '../../presentation/email_sign_up/email_sign_up.page.dart';
 import '../../presentation/sign_in/sign_in.page.dart';
 import '../../presentation/splash/splash.page.dart';
 
@@ -11,11 +12,12 @@ class AppPages {
   AppPages._();
   static final navKey = GlobalKey<NavigatorState>();
 
-  static final GoRouter router = GoRouter(
+  static final router = GoRouter(
     navigatorKey: navKey,
-    routes: <RouteBase>[
+    routes: [
       _normalRoute(path: Routes.SPLASH, page: const SplashPage()),
       _normalRoute(path: Routes.SIGN_IN, page: const SignInPage()),
+      _swipeableRoute(path: Routes.EMAIL_SIGN_UP, page: const EmailSignUpPage())
     ],
   );
 

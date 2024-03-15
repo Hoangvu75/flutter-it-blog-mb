@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/ui/color.ui.dart';
-import '../../../core/ui/text.ui.dart';
+import '../../core/ui/color.ui.dart';
+import '../../core/ui/text.ui.dart';
 
 class SignInHelpAndTerms extends StatelessWidget {
   const SignInHelpAndTerms({super.key});
@@ -38,6 +38,8 @@ class SignInHelpAndTerms extends StatelessWidget {
                 text: "Terms of Service",
                 style: TextStyle(
                   decoration: TextDecoration.underline,
+                  decorationColor: colorGreen,
+                  color: colorGreen,
                 ),
               ),
               TextSpan(
@@ -47,6 +49,8 @@ class SignInHelpAndTerms extends StatelessWidget {
                 text: "Privacy Policy",
                 style: TextStyle(
                   decoration: TextDecoration.underline,
+                  decorationColor: colorGreen,
+                  color: colorGreen,
                 ),
               ),
               TextSpan(

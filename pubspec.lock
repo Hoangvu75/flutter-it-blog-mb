@@ -485,6 +485,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  form_validation:
+    dependency: "direct main"
+    description:
+      name: form_validation
+      sha256: "6f6b40f63b1ab71e4b38ab13e72516f3dc8b7b2dff30d741427d2a5b2fc74d27"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.1"
   form_validator:
     dependency: "direct main"
     description:
@@ -701,6 +709,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  json_class:
+    dependency: transitive
+    description:
+      name: json_class
+      sha256: "95ae95062f7827ca77b7eb7b4a72db97bf01f71ed22bdbd98a3cc6d2691de961"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0+8"
   json_serializable:
     dependency: "direct dev"
     description:

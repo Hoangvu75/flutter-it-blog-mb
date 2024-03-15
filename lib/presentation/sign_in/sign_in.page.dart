@@ -2,18 +2,23 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../core/config/get_it.dart';
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/screen.ui.dart';
 import '../../core/ui/text.ui.dart';
 import '../../core/util/constants.dart';
+import '../../domain/repository/auth.repository.dart';
+import '../../domain/requests/google_sign_in.request.dart';
 import '../../generated/assets.dart';
+import '../../infrastructure/routing/app_pages.dart';
 import '../../infrastructure/state/sign_type.state.dart';
 import 'components/sign_in_buttons.dart';
-import 'components/sign_in_help_and_terms.dart';
+import '../widgets/sign_in_help_and_terms.dart';
 import 'components/sign_up_buttons.dart';
-import 'components/sign_up_terms.dart';
+import '../widgets/sign_up_terms.dart';
 import 'components/toggle_sign.dart';
 
 class SignInPage extends StatelessWidget {
@@ -88,6 +93,13 @@ class SignInPage extends StatelessWidget {
         ? GoogleSignIn(clientId: Constants.GOOGLE_IOS_CLIENT_ID)
         : GoogleSignIn();
     var account = await googleSignIn.signIn();
-    print(account?.email);
+    var authRepository = getIt.get<AuthRepository>();
+    var email = account?.email;
+    if (email == null) {
+      throw Exception("Email is null");
+    }
+    var tokens = await authRepository.googleSignIn(
+      GoogleSignInRequest(email: email),
+    );
   }
 }

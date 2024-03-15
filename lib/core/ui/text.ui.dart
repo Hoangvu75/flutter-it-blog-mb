@@ -44,7 +44,7 @@ const textHeader = TextStyle(
 );
 
 const textLargeHeader = TextStyle(
-  fontSize: 40,
+  fontSize: 48,
   fontWeight: FontWeight.w500,
   height: 1.2,
 );
