@@ -8,6 +8,7 @@ import '../../../core/extensions/context.extension.dart';
 import '../../../domain/repository/auth.repository.dart';
 import '../../../domain/requests/sign.request.dart';
 import '../../../infrastructure/routing/app_pages.dart';
+import '../../../infrastructure/services/storage.service.dart';
 import '../../../infrastructure/state/is_focus_sign_form.state.dart';
 import '../../widgets/green_button.dart';
 import '../../widgets/underline_text_field.dart';
@@ -71,17 +72,21 @@ class _SignInFormState extends State<SignInForm> {
               );
               EasyLoading.show();
               var signInRes = await authRepository.signIn(signRequest);
-              if (signInRes.success == true) {
+              EasyLoading.dismiss();
+              if (signInRes.isSuccess()) {
+                var storageService = getIt.get<StorageService>();
+                storageService.saveToken(signInRes.data!.accessToken!);
                 if (signInRes.data?.profile == null) {
-                  AppPages.navKey.currentContext?.go(Routes.CREATE_PROFILE);
+                  navContext?.go(Routes.CREATE_PROFILE);
+                  return;
                 }
+                navContext?.go(Routes.PICK_TOPICS);
               } else {
-                EasyLoading.showError(signInRes.error ?? "Sign up failed");
+                EasyLoading.showError(signInRes.error ?? "Sign in failed");
               }
             } catch (e) {
-              EasyLoading.showError("Sign up failed. $e");
-            } finally {
               EasyLoading.dismiss();
+              EasyLoading.showError("Sign in failed. $e");
             }
           },
         )

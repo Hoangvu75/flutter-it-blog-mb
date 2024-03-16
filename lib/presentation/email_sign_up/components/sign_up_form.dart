@@ -9,6 +9,7 @@ import '../../../core/ui/color.ui.dart';
 import '../../../core/ui/text.ui.dart';
 import '../../../domain/repository/auth.repository.dart';
 import '../../../domain/requests/sign.request.dart';
+import '../../../infrastructure/routing/app_pages.dart';
 import '../../../infrastructure/state/is_focus_sign_form.state.dart';
 import '../../widgets/green_button.dart';
 import '../../widgets/underline_text_field.dart';
@@ -85,21 +86,20 @@ class _SignUpFormState extends State<SignUpForm> {
               );
               EasyLoading.show();
               var signUpRes = await authRepository.signUp(signRequest);
-              if (signUpRes.success == true) {
+              EasyLoading.dismiss();
+              if (signUpRes.isSuccess()) {
                 EasyLoading.showSuccess(
                   "Sign up successfully\nYou can sign in now",
-                ).then((value) {
-                  context.pop();
-                });
+                );
+                navContext?.pop();
               } else {
                 await EasyLoading.showError(
                   signUpRes.error ?? "Sign up failed by undefined error",
                 );
               }
             } catch (e) {
-              EasyLoading.showError("Sign up failed $e");
-            } finally {
               EasyLoading.dismiss();
+              EasyLoading.showError("Sign up failed $e");
             }
           },
         ),

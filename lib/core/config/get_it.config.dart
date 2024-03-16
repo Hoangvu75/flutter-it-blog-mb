@@ -12,7 +12,8 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../../domain/repository/auth.repository.dart' as _i3;
-import '../../infrastructure/services/storage.service.dart' as _i4;
+import '../../domain/repository/profile.repository.dart' as _i4;
+import '../../infrastructure/services/storage.service.dart' as _i5;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -26,7 +27,8 @@ extension GetItInjectableX on _i1.GetIt {
       environmentFilter,
     );
     gh.lazySingleton<_i3.AuthRepository>(() => _i3.AuthRepository());
-    gh.lazySingleton<_i4.StorageService>(() => _i4.StorageService());
+    gh.lazySingleton<_i4.ProfileRepository>(() => _i4.ProfileRepository());
+    gh.lazySingleton<_i5.StorageService>(() => _i5.StorageService());
     return this;
   }
 }

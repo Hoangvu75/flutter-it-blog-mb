@@ -24,4 +24,11 @@ class BaseResponse<T> {
       return jsonConvertor(element);
     }).toList();
   }
+
+  bool isSuccess() {
+    if (success == null || code == null) {
+      return false;
+    }
+    return success == true && (code! >= 200 && code! < 300);
+  }
 }
