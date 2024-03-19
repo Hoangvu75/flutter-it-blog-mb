@@ -10,5 +10,7 @@ class Constants {
   static const REGISTER_ENDPOINT = '/auth/register';
   static const LOGIN_ENDPOINT = '/auth/login';
   static const GOOGLE_LOGIN_ENDPOINT = '/auth/google-login';
-  static const CREATE_PROFILE_ENDPOINT = '/profile';
+  static const PROFILE_ENDPOINT = '/profile';
+  static const TOPIC_ENDPOINT = '/topic';
+  static const SET_TOPIC_ENDPOINT = '/topic/set-topics';
 }

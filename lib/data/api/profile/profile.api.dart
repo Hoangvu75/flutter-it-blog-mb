@@ -10,6 +10,6 @@ part 'profile.api.g.dart';
 abstract class ProfileApi {
   factory ProfileApi(Dio dio) = _ProfileApi;
 
-  @POST(Constants.API_HOST + Constants.API_PREFIX + Constants.CREATE_PROFILE_ENDPOINT)
+  @POST(Constants.API_HOST + Constants.API_PREFIX + Constants.PROFILE_ENDPOINT)
   Future<BaseResponse> createProfile(@Body() Map<String, dynamic> body);
 }

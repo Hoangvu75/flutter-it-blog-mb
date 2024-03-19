@@ -13,6 +13,7 @@ import 'package:injectable/injectable.dart' as _i2;
 
 import '../../domain/repository/auth.repository.dart' as _i3;
 import '../../domain/repository/profile.repository.dart' as _i4;
+import '../../domain/repository/topic.repository.dart' as _i6;
 import '../../infrastructure/services/storage.service.dart' as _i5;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -29,6 +30,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i3.AuthRepository>(() => _i3.AuthRepository());
     gh.lazySingleton<_i4.ProfileRepository>(() => _i4.ProfileRepository());
     gh.lazySingleton<_i5.StorageService>(() => _i5.StorageService());
+    gh.lazySingleton<_i6.TopicRepository>(() => _i6.TopicRepository());
     return this;
   }
 }

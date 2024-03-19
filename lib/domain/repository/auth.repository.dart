@@ -21,7 +21,7 @@ class AuthRepository {
     if (response.success == false) {
       return newResponse;
     }
-    SignInTokens tokens = response.parse(SignInTokens.fromJson);
+    final tokens = response.parse(SignInTokens.fromJson);
     newResponse.data = tokens;
     return newResponse;
   }
@@ -38,7 +38,7 @@ class AuthRepository {
     if (response.success == false) {
       return newResponse;
     }
-    SignInTokens tokens = response.parse(SignInTokens.fromJson);
+    final tokens = response.parse(SignInTokens.fromJson);
     newResponse.data = tokens;
     return newResponse;
   }
