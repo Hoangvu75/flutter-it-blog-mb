@@ -26,6 +26,8 @@ mixin _$Profile {
   String? get lastName => throw _privateConstructorUsedError;
   String? get dateOfBirth => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
+  String? get job => throw _privateConstructorUsedError;
+  String? get company => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get gender => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
@@ -49,6 +51,8 @@ abstract class $ProfileCopyWith<$Res> {
       String? lastName,
       String? dateOfBirth,
       String? phone,
+      String? job,
+      String? company,
       String? address,
       String? gender,
       String? avatarUrl,
@@ -77,6 +81,8 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
     Object? lastName = freezed,
     Object? dateOfBirth = freezed,
     Object? phone = freezed,
+    Object? job = freezed,
+    Object? company = freezed,
     Object? address = freezed,
     Object? gender = freezed,
     Object? avatarUrl = freezed,
@@ -107,6 +113,14 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      job: freezed == job
+          ? _value.job
+          : job // ignore: cast_nullable_to_non_nullable
+              as String?,
+      company: freezed == company
+          ? _value.company
+          : company // ignore: cast_nullable_to_non_nullable
               as String?,
       address: freezed == address
           ? _value.address
@@ -158,6 +172,8 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       String? lastName,
       String? dateOfBirth,
       String? phone,
+      String? job,
+      String? company,
       String? address,
       String? gender,
       String? avatarUrl,
@@ -185,6 +201,8 @@ class __$$ProfileImplCopyWithImpl<$Res>
     Object? lastName = freezed,
     Object? dateOfBirth = freezed,
     Object? phone = freezed,
+    Object? job = freezed,
+    Object? company = freezed,
     Object? address = freezed,
     Object? gender = freezed,
     Object? avatarUrl = freezed,
@@ -215,6 +233,14 @@ class __$$ProfileImplCopyWithImpl<$Res>
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      job: freezed == job
+          ? _value.job
+          : job // ignore: cast_nullable_to_non_nullable
+              as String?,
+      company: freezed == company
+          ? _value.company
+          : company // ignore: cast_nullable_to_non_nullable
               as String?,
       address: freezed == address
           ? _value.address
@@ -250,6 +276,8 @@ class _$ProfileImpl implements _Profile {
       this.lastName,
       this.dateOfBirth,
       this.phone,
+      this.job,
+      this.company,
       this.address,
       this.gender,
       this.avatarUrl,
@@ -273,6 +301,10 @@ class _$ProfileImpl implements _Profile {
   @override
   final String? phone;
   @override
+  final String? job;
+  @override
+  final String? company;
+  @override
   final String? address;
   @override
   final String? gender;
@@ -293,7 +325,7 @@ class _$ProfileImpl implements _Profile {
 
   @override
   String toString() {
-    return 'Profile(id: $id, account: $account, firstName: $firstName, lastName: $lastName, dateOfBirth: $dateOfBirth, phone: $phone, address: $address, gender: $gender, avatarUrl: $avatarUrl, favoriteTopics: $favoriteTopics, createdAt: $createdAt)';
+    return 'Profile(id: $id, account: $account, firstName: $firstName, lastName: $lastName, dateOfBirth: $dateOfBirth, phone: $phone, job: $job, company: $company, address: $address, gender: $gender, avatarUrl: $avatarUrl, favoriteTopics: $favoriteTopics, createdAt: $createdAt)';
   }
 
   @override
@@ -310,6 +342,8 @@ class _$ProfileImpl implements _Profile {
             (identical(other.dateOfBirth, dateOfBirth) ||
                 other.dateOfBirth == dateOfBirth) &&
             (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.job, job) || other.job == job) &&
+            (identical(other.company, company) || other.company == company) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.avatarUrl, avatarUrl) ||
@@ -330,6 +364,8 @@ class _$ProfileImpl implements _Profile {
       lastName,
       dateOfBirth,
       phone,
+      job,
+      company,
       address,
       gender,
       avatarUrl,
@@ -358,6 +394,8 @@ abstract class _Profile implements Profile {
       final String? lastName,
       final String? dateOfBirth,
       final String? phone,
+      final String? job,
+      final String? company,
       final String? address,
       final String? gender,
       final String? avatarUrl,
@@ -379,6 +417,10 @@ abstract class _Profile implements Profile {
   @override
   String? get phone;
   @override
+  String? get job;
+  @override
+  String? get company;
+  @override
   String? get address;
   @override
   String? get gender;
@@ -391,5 +433,178 @@ abstract class _Profile implements Profile {
   @override
   @JsonKey(ignore: true)
   _$$ProfileImplCopyWith<_$ProfileImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+MostFollowedProfile _$MostFollowedProfileFromJson(Map<String, dynamic> json) {
+  return _MostFollowedProfile.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MostFollowedProfile {
+  Profile? get profile => throw _privateConstructorUsedError;
+  int? get followerCount => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $MostFollowedProfileCopyWith<MostFollowedProfile> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MostFollowedProfileCopyWith<$Res> {
+  factory $MostFollowedProfileCopyWith(
+          MostFollowedProfile value, $Res Function(MostFollowedProfile) then) =
+      _$MostFollowedProfileCopyWithImpl<$Res, MostFollowedProfile>;
+  @useResult
+  $Res call({Profile? profile, int? followerCount});
+
+  $ProfileCopyWith<$Res>? get profile;
+}
+
+/// @nodoc
+class _$MostFollowedProfileCopyWithImpl<$Res, $Val extends MostFollowedProfile>
+    implements $MostFollowedProfileCopyWith<$Res> {
+  _$MostFollowedProfileCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? profile = freezed,
+    Object? followerCount = freezed,
+  }) {
+    return _then(_value.copyWith(
+      profile: freezed == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as Profile?,
+      followerCount: freezed == followerCount
+          ? _value.followerCount
+          : followerCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProfileCopyWith<$Res>? get profile {
+    if (_value.profile == null) {
+      return null;
+    }
+
+    return $ProfileCopyWith<$Res>(_value.profile!, (value) {
+      return _then(_value.copyWith(profile: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$MostFollowedProfileImplCopyWith<$Res>
+    implements $MostFollowedProfileCopyWith<$Res> {
+  factory _$$MostFollowedProfileImplCopyWith(_$MostFollowedProfileImpl value,
+          $Res Function(_$MostFollowedProfileImpl) then) =
+      __$$MostFollowedProfileImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({Profile? profile, int? followerCount});
+
+  @override
+  $ProfileCopyWith<$Res>? get profile;
+}
+
+/// @nodoc
+class __$$MostFollowedProfileImplCopyWithImpl<$Res>
+    extends _$MostFollowedProfileCopyWithImpl<$Res, _$MostFollowedProfileImpl>
+    implements _$$MostFollowedProfileImplCopyWith<$Res> {
+  __$$MostFollowedProfileImplCopyWithImpl(_$MostFollowedProfileImpl _value,
+      $Res Function(_$MostFollowedProfileImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? profile = freezed,
+    Object? followerCount = freezed,
+  }) {
+    return _then(_$MostFollowedProfileImpl(
+      profile: freezed == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as Profile?,
+      followerCount: freezed == followerCount
+          ? _value.followerCount
+          : followerCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MostFollowedProfileImpl implements _MostFollowedProfile {
+  _$MostFollowedProfileImpl({this.profile, this.followerCount});
+
+  factory _$MostFollowedProfileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MostFollowedProfileImplFromJson(json);
+
+  @override
+  final Profile? profile;
+  @override
+  final int? followerCount;
+
+  @override
+  String toString() {
+    return 'MostFollowedProfile(profile: $profile, followerCount: $followerCount)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MostFollowedProfileImpl &&
+            (identical(other.profile, profile) || other.profile == profile) &&
+            (identical(other.followerCount, followerCount) ||
+                other.followerCount == followerCount));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, profile, followerCount);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MostFollowedProfileImplCopyWith<_$MostFollowedProfileImpl> get copyWith =>
+      __$$MostFollowedProfileImplCopyWithImpl<_$MostFollowedProfileImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MostFollowedProfileImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MostFollowedProfile implements MostFollowedProfile {
+  factory _MostFollowedProfile(
+      {final Profile? profile,
+      final int? followerCount}) = _$MostFollowedProfileImpl;
+
+  factory _MostFollowedProfile.fromJson(Map<String, dynamic> json) =
+      _$MostFollowedProfileImpl.fromJson;
+
+  @override
+  Profile? get profile;
+  @override
+  int? get followerCount;
+  @override
+  @JsonKey(ignore: true)
+  _$$MostFollowedProfileImplCopyWith<_$MostFollowedProfileImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

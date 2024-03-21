@@ -4,6 +4,7 @@ import '../../core/ui/color.ui.dart';
 import '../../core/ui/screen.ui.dart';
 import '../../core/ui/text.ui.dart';
 import 'components/continue_button.dart';
+import 'components/most_followed_profiles.dart';
 
 class FollowOthers extends StatelessWidget {
   const FollowOthers({super.key});
@@ -55,6 +56,7 @@ class FollowOthers extends StatelessWidget {
                           thickness: 0.2,
                         ),
                         const SizedBox(height: 16),
+                        const MostFollowedProfiles(),
                       ],
                     ),
                   ),

@@ -23,7 +23,7 @@ class _TopicListState extends State<TopicList> {
 
   @override
   void initState() {
-    final response = topicRepository.getTopics().then((value) {
+    topicRepository.getTopics().then((value) {
       if (value.success == true && value.data != null) {
         setState(() {
           topicList.addAll(value.data!);

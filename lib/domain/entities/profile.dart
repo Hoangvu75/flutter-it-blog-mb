@@ -15,6 +15,8 @@ class Profile with _$Profile {
     String? lastName,
     String? dateOfBirth,
     String? phone,
+    String? job,
+    String? company,
     String? address,
     String? gender,
     String? avatarUrl,
@@ -24,4 +26,15 @@ class Profile with _$Profile {
 
   factory Profile.fromJson(Map<String, dynamic> json) =>
       _$ProfileFromJson(json);
+}
+
+@freezed
+class MostFollowedProfile with _$MostFollowedProfile {
+  factory MostFollowedProfile({
+    Profile? profile,
+    int? followerCount,
+  }) = _MostFollowedProfile;
+
+  factory MostFollowedProfile.fromJson(Map<String, dynamic> json) =>
+      _$MostFollowedProfileFromJson(json);
 }

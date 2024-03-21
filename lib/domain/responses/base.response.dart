@@ -31,6 +31,13 @@ class BaseResponse<T> {
     }).toList();
   }
 
+  List<T> parsePaginationList<T>(T Function(Map<String, dynamic> map) jsonConvertor) {
+    List items = (data! as dynamic)['data'] as dynamic;
+    return items.map((element) {
+      return jsonConvertor(element);
+    }).toList();
+  }
+
   bool isSuccess() {
     if (success == null || code == null) {
       return false;

@@ -7,7 +7,7 @@ part of 'selected_topics.state.dart';
 // **************************************************************************
 
 String _$selectedTopicsStateHash() =>
-    r'9d9dab6ade98307595ee2b006905b3542357879f';
+    r'aa2f3234acee8d4d477e2b71fa6da0b334b05584';
 
 /// See also [SelectedTopicsState].
 @ProviderFor(SelectedTopicsState)

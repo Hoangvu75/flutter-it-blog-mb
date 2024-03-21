@@ -5,6 +5,8 @@ class CreateProfileRequest {
   final String phone;
   final String address;
   final String gender;
+  final String job;
+  final String company;
 
   CreateProfileRequest({
     required this.firstName,
@@ -13,6 +15,8 @@ class CreateProfileRequest {
     required this.phone,
     required this.address,
     required this.gender,
+    required this.job,
+    required this.company,
   });
 
   Map<String, dynamic> toMap() {
@@ -23,6 +27,8 @@ class CreateProfileRequest {
       "phone": phone,
       "address": address,
       "gender": gender,
+      "job": job,
+      "company": company,
     };
   }
 }

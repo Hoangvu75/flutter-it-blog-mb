@@ -12,4 +12,7 @@ abstract class ProfileApi {
 
   @POST(Constants.API_HOST + Constants.API_PREFIX + Constants.PROFILE_ENDPOINT)
   Future<BaseResponse> createProfile(@Body() Map<String, dynamic> body);
+
+  @GET(Constants.API_HOST + Constants.API_PREFIX + Constants.MOST_FOLLOWED_PROFILE_ENDPOINT)
+  Future<BaseResponse> getMostFollowedProfiles(@Query('page') int page, @Query('size') int size);
 }

@@ -13,4 +13,5 @@ class Constants {
   static const PROFILE_ENDPOINT = '/profile';
   static const TOPIC_ENDPOINT = '/topic';
   static const SET_TOPIC_ENDPOINT = '/topic/set-topics';
+  static const MOST_FOLLOWED_PROFILE_ENDPOINT = '/profile/most-followed';
 }

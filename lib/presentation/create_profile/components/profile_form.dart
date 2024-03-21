@@ -33,11 +33,15 @@ class _ProfileFormState extends State<ProfileForm> {
   final addressController = TextEditingController();
   final genderSubject = BehaviorSubject<String?>.seeded(null);
   final dobController = TextEditingController();
+  final jobController = TextEditingController();
+  final companyController = TextEditingController();
   DateTime? dob;
   final firstNameFocusNode = FocusNode();
   final lastNameFocusNode = FocusNode();
   final phoneFocusNode = FocusNode();
   final addressFocusNode = FocusNode();
+  final jobFocusNode = FocusNode();
+  final companyFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -52,6 +56,12 @@ class _ProfileFormState extends State<ProfileForm> {
     );
     addressFocusNode.addListener(
       () => focusNodeListener(addressFocusNode.hasFocus),
+    );
+    jobFocusNode.addListener(
+      () => focusNodeListener(jobFocusNode.hasFocus),
+    );
+    companyFocusNode.addListener(
+      () => focusNodeListener(companyFocusNode.hasFocus),
     );
     super.initState();
   }
@@ -155,51 +165,52 @@ class _ProfileFormState extends State<ProfileForm> {
                       children: [
                         StreamBuilder<String?>(
                           stream: genderSubject.stream,
-                          builder: (context, snapshot) =>
-                              DropdownButtonFormField<String>(
-                            decoration: const InputDecoration(
-                              isDense: true,
-                              focusColor: colorPrimary,
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: colorPrimary),
-                              ),
-                            ),
-                            isExpanded: true,
-                            icon: const SizedBox.shrink(),
-                            items: const [
-                              DropdownMenuItem<String>(
-                                value: 'MALE',
-                                child: Center(
-                                  child: Text(
-                                    "Male",
-                                    style: textLargeBody,
-                                  ),
+                          builder: (context, snapshot) {
+                            return DropdownButtonFormField<String>(
+                              decoration: const InputDecoration(
+                                isDense: true,
+                                focusColor: colorPrimary,
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: colorPrimary),
                                 ),
                               ),
-                              DropdownMenuItem<String>(
-                                value: 'FEMALE',
-                                child: Center(
-                                  child: Text(
-                                    "Female",
-                                    style: textLargeBody,
+                              isExpanded: true,
+                              icon: const SizedBox.shrink(),
+                              items: const [
+                                DropdownMenuItem<String>(
+                                  value: 'MALE',
+                                  child: Center(
+                                    child: Text(
+                                      "Male",
+                                      style: textLargeBody,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'OTHER',
-                                child: Center(
-                                  child: Text(
-                                    "Other",
-                                    style: textLargeBody,
+                                DropdownMenuItem<String>(
+                                  value: 'FEMALE',
+                                  child: Center(
+                                    child: Text(
+                                      "Female",
+                                      style: textLargeBody,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                            onChanged: (value) {
-                              genderSubject.add(value);
-                            },
-                            value: genderSubject.value,
-                          ),
+                                DropdownMenuItem<String>(
+                                  value: 'OTHER',
+                                  child: Center(
+                                    child: Text(
+                                      "Other",
+                                      style: textLargeBody,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              onChanged: (value) {
+                                genderSubject.add(value);
+                              },
+                              value: genderSubject.value,
+                            );
+                          },
                         ),
                         const Positioned(
                           right: 0,
@@ -224,6 +235,21 @@ class _ProfileFormState extends State<ProfileForm> {
                   ),
                 ],
               ),
+              Column(
+                children: [
+                  UnderlineTextField(
+                    controller: jobController,
+                    focusNode: jobFocusNode,
+                    hint: "Job title",
+                  ),
+                  const SizedBox(height: 12),
+                  UnderlineTextField(
+                    controller: companyController,
+                    focusNode: companyFocusNode,
+                    hint: "Company name",
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -244,12 +270,25 @@ class _ProfileFormState extends State<ProfileForm> {
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
               );
-            } else {
+            } else if (pageController.page == 1) {
               var validation = onValidate_1(
                 gender: genderSubject.value?.toLowerCase(),
                 dateOfBirth: dob?.millisecondsSinceEpoch.toString(),
                 phone: phoneController.text,
                 address: addressController.text,
+              );
+              if (validation != null) {
+                EasyLoading.showError(validation);
+                return;
+              }
+              pageController.nextPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            } else {
+              var validation = onValidate_2(
+                job: jobController.text,
+                company: companyController.text,
               );
               if (validation != null) {
                 EasyLoading.showError(validation);
@@ -277,6 +316,8 @@ class _ProfileFormState extends State<ProfileForm> {
       final address = addressController.text;
       final gender = genderSubject.value?.toLowerCase() ?? "other";
       final dateOfBirth = dob?.millisecondsSinceEpoch ?? 0;
+      final job = jobController.text;
+      final company = companyController.text;
       final request = CreateProfileRequest(
         firstName: firstName,
         lastName: lastName,
@@ -284,6 +325,8 @@ class _ProfileFormState extends State<ProfileForm> {
         phone: phone,
         address: address,
         gender: gender,
+        job: job,
+        company: company,
       );
       final profileRepository = getIt.get<ProfileRepository>();
       EasyLoading.show();
@@ -328,6 +371,17 @@ class _ProfileFormState extends State<ProfileForm> {
     if (phoneValidation != null) return "Phone number is invalid";
     final addressValidation = ValidationBuilder().required().build()(address);
     if (addressValidation != null) return "Address is required";
+    return null;
+  }
+
+  String? onValidate_2({
+    required String? job,
+    required String? company,
+  }) {
+    final jobValidation = ValidationBuilder().required().build()(job);
+    if (jobValidation != null) return "Job title is required";
+    final companyValidation = ValidationBuilder().required().build()(company);
+    if (companyValidation != null) return "Company name is required";
     return null;
   }
 }
