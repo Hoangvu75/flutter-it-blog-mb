@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/get_it.dart';
 import '../../../core/ui/color.ui.dart';
 import '../../../core/ui/text.ui.dart';
 import '../../../domain/repository/topic.repository.dart';
+import '../../../infrastructure/routing/app_pages.dart';
 import '../../../infrastructure/state/selected_topics.state.dart';
 
 class ContinueButton extends StatelessWidget {
@@ -22,6 +24,7 @@ class ContinueButton extends StatelessWidget {
             color: isOver3 ? colorGreen : colorDisabledGreen,
             child: InkWell(
               onTap: () {
+                context.go(Routes.FOLLOW_OTHERS);
                 final topicRepository = getIt.get<TopicRepository>();
                 final topicIds = ref
                     .read(selectedTopicsStateProvider)

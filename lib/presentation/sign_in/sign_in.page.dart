@@ -15,6 +15,7 @@ import '../../domain/repository/auth.repository.dart';
 import '../../domain/requests/google_sign_in.request.dart';
 import '../../generated/assets.dart';
 import '../../infrastructure/routing/app_pages.dart';
+import '../../infrastructure/services/storage.service.dart';
 import '../../infrastructure/state/sign_type.state.dart';
 import 'components/sign_in_buttons.dart';
 import '../widgets/sign_in_help_and_terms.dart';
@@ -106,6 +107,8 @@ class SignInPage extends StatelessWidget {
       );
       EasyLoading.dismiss();
       if (signInRes.isSuccess()) {
+        final storageService = getIt.get<StorageService>();
+        storageService.saveToken(signInRes.data!.accessToken!);
         if (signInRes.data?.profile == null) {
           navContext?.go(Routes.CREATE_PROFILE);
           return;

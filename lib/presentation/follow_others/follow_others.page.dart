@@ -4,10 +4,9 @@ import '../../core/ui/color.ui.dart';
 import '../../core/ui/screen.ui.dart';
 import '../../core/ui/text.ui.dart';
 import 'components/continue_button.dart';
-import 'components/topic_list.dart';
 
-class PickTopicsPage extends StatelessWidget {
-  const PickTopicsPage({super.key});
+class FollowOthers extends StatelessWidget {
+  const FollowOthers({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +33,28 @@ class PickTopicsPage extends StatelessWidget {
                       children: [
                         SizedBox(width: screenWidth(context)),
                         Text(
-                          "What are you interested in?",
+                          "Recommended for you.",
                           style: textLargeTitle.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          "Choose three or more.",
-                          style: textSmallTitle.copyWith(
-                            color: colorGreyText,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: Text(
+                            "Here are some top writers that you may interested in.",
+                            style: textSmallTitle.copyWith(
+                              color: colorGreyText,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                         const SizedBox(height: 16),
-                        const TopicList(),
+                        const Divider(
+                          color: colorGreyText,
+                          thickness: 0.2,
+                        ),
+                        const SizedBox(height: 16),
                       ],
                     ),
                   ),
@@ -69,7 +76,7 @@ class PickTopicsPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    child: const ContinueButton()
+                    child: const ContinueButton(),
                 )
               ],
             ),

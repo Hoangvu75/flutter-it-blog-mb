@@ -8,6 +8,7 @@ abstract class Routes {
   static const EMAIL_SIGN_IN = _Paths.EMAIL_SIGN_IN;
   static const CREATE_PROFILE = _Paths.CREATE_PROFILE;
   static const PICK_TOPICS = _Paths.PICK_TOPICS;
+  static const FOLLOW_OTHERS = _Paths.FOLLOW_OTHERS;
 }
 
 abstract class _Paths {
@@ -18,4 +19,5 @@ abstract class _Paths {
   static const EMAIL_SIGN_IN = '/email-sign-in';
   static const CREATE_PROFILE = '/create-profile';
   static const PICK_TOPICS = '/pick-topic';
+  static const FOLLOW_OTHERS = '/follow-others';
 }
