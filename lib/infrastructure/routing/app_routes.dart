@@ -9,6 +9,7 @@ abstract class Routes {
   static const CREATE_PROFILE = _Paths.CREATE_PROFILE;
   static const PICK_TOPICS = _Paths.PICK_TOPICS;
   static const FOLLOW_OTHERS = _Paths.FOLLOW_OTHERS;
+  static const MAIN = _Paths.MAIN;
 }
 
 abstract class _Paths {
@@ -20,4 +21,5 @@ abstract class _Paths {
   static const CREATE_PROFILE = '/create-profile';
   static const PICK_TOPICS = '/pick-topic';
   static const FOLLOW_OTHERS = '/follow-others';
+  static const MAIN = '/main';
 }

@@ -110,10 +110,13 @@ class SignInPage extends StatelessWidget {
         final storageService = getIt.get<StorageService>();
         storageService.saveToken(signInRes.data!.accessToken!);
         if (signInRes.data?.profile == null) {
-          navContext?.go(Routes.CREATE_PROFILE);
-          return;
+          return navContext?.go(Routes.CREATE_PROFILE);
         }
-        navContext?.go(Routes.PICK_TOPICS);
+        if (signInRes.data?.profile?.favoriteTopics == null ||
+            signInRes.data?.profile?.favoriteTopics! == []) {
+          return navContext?.go(Routes.PICK_TOPICS);
+        }
+        navContext?.go(Routes.MAIN);
       } else {
         EasyLoading.showError(signInRes.error ?? "Sign in failed");
       }

@@ -14,4 +14,6 @@ class Constants {
   static const TOPIC_ENDPOINT = '/topic';
   static const SET_TOPIC_ENDPOINT = '/topic/set-topics';
   static const MOST_FOLLOWED_PROFILE_ENDPOINT = '/profile/most-followed';
+  static const FOLLOW_ENDPOINT = '/follows/follow';
+  static const UNFOLLOW_ENDPOINT = '/follows/unfollow';
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_tap/flutter_scale_tap.dart';
 
+import '../../../core/config/get_it.dart';
 import '../../../core/ui/color.ui.dart';
 import '../../../core/ui/text.ui.dart';
 import '../../../core/extensions/rx.extension.dart';
 import '../../../domain/entities/profile.dart';
+import '../../../domain/repository/follow.repository.dart';
 
 class ProfileItem extends StatelessWidget {
   final Profile profile;
@@ -51,7 +53,14 @@ class ProfileItem extends StatelessWidget {
           return StreamBuilder<bool>(
             stream: isFollowing.stream,
             builder: (context, snapshot) => ScaleTap(
-              onPressed: () => isFollowing.add(!isFollowing.value),
+              onPressed: () {
+                isFollowing.add(!isFollowing.value);
+                final followRepository = getIt.get<FollowRepository>();
+                if (isFollowing.value) {
+                  return followRepository.follow(profile.id!);
+                }
+                return followRepository.unfollow(profile.id!);
+              },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 padding: const EdgeInsets.only(
@@ -75,7 +84,7 @@ class ProfileItem extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        isFollowing.value ? "Followed" : "Follow",
+                        isFollowing.value ? "Following" : "Follow",
                         style: textCaption.copyWith(
                           color:
                               isFollowing.value ? colorPrimary : colorSecondary,

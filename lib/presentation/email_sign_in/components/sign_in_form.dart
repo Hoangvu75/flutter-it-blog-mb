@@ -80,7 +80,11 @@ class _SignInFormState extends State<SignInForm> {
                   navContext?.go(Routes.CREATE_PROFILE);
                   return;
                 }
-                navContext?.go(Routes.PICK_TOPICS);
+                if (signInRes.data?.profile?.favoriteTopics == null ||
+                    signInRes.data?.profile?.favoriteTopics! == []) {
+                  return navContext?.go(Routes.PICK_TOPICS);
+                }
+                navContext?.go(Routes.MAIN);
               } else {
                 EasyLoading.showError(signInRes.error ?? "Sign in failed");
               }
