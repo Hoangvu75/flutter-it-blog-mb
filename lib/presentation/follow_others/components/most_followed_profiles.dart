@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_tap/flutter_scale_tap.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../core/config/get_it.dart';
+import '../../../core/extensions/rx.extension.dart';
 import '../../../core/ui/color.ui.dart';
+import '../../../core/ui/screen.ui.dart';
 import '../../../core/ui/text.ui.dart';
 import '../../../domain/entities/profile.dart';
 import '../../../domain/repository/profile.repository.dart';
+import 'profile_item.dart';
 
 class MostFollowedProfiles extends StatefulWidget {
   const MostFollowedProfiles({super.key});
@@ -15,70 +19,45 @@ class MostFollowedProfiles extends StatefulWidget {
 }
 
 class _MostFollowedProfilesState extends State<MostFollowedProfiles> {
+  final mostFollowedProfiles = <MostFollowedProfile>[].rx;
   final ProfileRepository profileRepository = getIt.get<ProfileRepository>();
-  final List<MostFollowedProfile> mostFollowedProfiles = [];
 
   @override
   void initState() {
-    profileRepository
-        .getMostFollowedProfiles(page: 0, size: 10)
-        .then((value) {
-      if (value.success == true && value.data != null) {
-        setState(() {
-          mostFollowedProfiles.addAll(value.data!);
-        });
-      }
-    });
+    fetchProfiles();
     super.initState();
+  }
+
+  Future<void> fetchProfiles() async {
+    final response = await profileRepository.getMostFollowedProfiles(
+      page: 0,
+      size: 10,
+    );
+    if (response.success == true && response.data != null) {
+      mostFollowedProfiles.sink.add(response.data!);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: mostFollowedProfiles.length,
-      itemBuilder: (context, index) {
-        final data = mostFollowedProfiles[index];
-        return ListTile(
-          titleAlignment: ListTileTitleAlignment.titleHeight,
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(data.profile!.avatarUrl. toString()),
-          ),
-          title: Text(
-            "${data.profile!.firstName!} ${data.profile!.lastName!}",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "${data.profile!.lastName!} is ${data.profile!.job!} at ${data.profile!.company!}.",
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+    return StreamBuilder<List<MostFollowedProfile>>(
+      stream: mostFollowedProfiles.stream,
+      builder: (context, snapshot) => mostFollowedProfiles.value.isEmpty
+          ? SizedBox(
+              height: screenHeight(context) * 0.5,
+              child: const Center(
+                child: CircularProgressIndicator(color: colorPrimary),
               ),
-              Text(
-                "Followers: ${data.followerCount}",
-                style: const TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-            ],
-          ),
-          trailing: ScaleTap(
-            onPressed: () {},
-            child: Text(
-              "Follow",
-              style: textBody.copyWith(
-                color: colorGreen,
-                fontWeight: FontWeight.bold,
+            )
+          : ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: mostFollowedProfiles.value.length,
+              itemBuilder: (context, index) => ProfileItem(
+                profile: mostFollowedProfiles.value[index].profile!,
+                followerCount: mostFollowedProfiles.value[index].followerCount!,
               ),
             ),
-          ),
-        );
-      },
     );
   }
 }
