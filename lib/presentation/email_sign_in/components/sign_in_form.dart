@@ -10,6 +10,7 @@ import '../../../domain/requests/sign.request.dart';
 import '../../../infrastructure/routing/app_pages.dart';
 import '../../../infrastructure/services/storage.service.dart';
 import '../../../infrastructure/state/is_focus_sign_form.state.dart';
+import '../../../infrastructure/state/my_profile.state.dart';
 import '../../widgets/green_button.dart';
 import '../../widgets/underline_text_field.dart';
 
@@ -80,6 +81,9 @@ class _SignInFormState extends State<SignInForm> {
                   navContext?.go(Routes.CREATE_PROFILE);
                   return;
                 }
+                navContext?.provider
+                    .read(myProfileStateProvider.notifier)
+                    .setProfile(signInRes.data!.profile!);
                 if (signInRes.data?.profile?.favoriteTopics == null ||
                     signInRes.data?.profile?.favoriteTopics! == []) {
                   return navContext?.go(Routes.PICK_TOPICS);

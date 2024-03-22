@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../core/config/get_it.dart';
+import '../../core/extensions/context.extension.dart';
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/screen.ui.dart';
 import '../../core/ui/text.ui.dart';
@@ -16,6 +17,7 @@ import '../../domain/requests/google_sign_in.request.dart';
 import '../../generated/assets.dart';
 import '../../infrastructure/routing/app_pages.dart';
 import '../../infrastructure/services/storage.service.dart';
+import '../../infrastructure/state/my_profile.state.dart';
 import '../../infrastructure/state/sign_type.state.dart';
 import 'components/sign_in_buttons.dart';
 import '../widgets/sign_in_help_and_terms.dart';
@@ -112,6 +114,9 @@ class SignInPage extends StatelessWidget {
         if (signInRes.data?.profile == null) {
           return navContext?.go(Routes.CREATE_PROFILE);
         }
+        navContext?.provider
+            .read(myProfileStateProvider.notifier)
+            .setProfile(signInRes.data!.profile!);
         if (signInRes.data?.profile?.favoriteTopics == null ||
             signInRes.data?.profile?.favoriteTopics! == []) {
           return navContext?.go(Routes.PICK_TOPICS);
