@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_tap/flutter_scale_tap.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../../core/config/get_it.dart';
 import '../../../core/extensions/rx.extension.dart';
 import '../../../core/ui/color.ui.dart';
 import '../../../core/ui/screen.ui.dart';
-import '../../../core/ui/text.ui.dart';
 import '../../../domain/entities/profile.dart';
 import '../../../domain/repository/profile.repository.dart';
 import 'profile_item.dart';

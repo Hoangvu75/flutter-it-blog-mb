@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/config/get_it.dart';
 import '../../../core/extensions/context.extension.dart';
-import '../../../core/ui/color.ui.dart';
-import '../../../core/ui/text.ui.dart';
 import '../../../domain/repository/auth.repository.dart';
 import '../../../domain/requests/sign.request.dart';
 import '../../../infrastructure/routing/app_pages.dart';

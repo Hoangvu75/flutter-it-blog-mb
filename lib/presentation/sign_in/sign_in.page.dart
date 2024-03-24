@@ -53,10 +53,13 @@ class SignInPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
-            const Text(
-              "Discover perspectives that deepen understanding.",
-              style: textSmallTitle,
-              textAlign: TextAlign.center,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                "Discover perspectives that deepen understanding.",
+                style: textSmallTitle,
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(height: 32),
             Consumer(

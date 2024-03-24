@@ -13,4 +13,11 @@ class SignRequest {
       "password": password,
     };
   }
+
+  factory SignRequest.fromMap(Map<String, dynamic> map) {
+    return SignRequest(
+      email: map['email'],
+      password: map['password'],
+    );
+  }
 }

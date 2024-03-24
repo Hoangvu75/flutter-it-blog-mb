@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../../core/extensions/rx.extension.dart';
 import 'topic_item.dart';

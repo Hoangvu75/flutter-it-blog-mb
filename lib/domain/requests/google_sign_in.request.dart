@@ -10,4 +10,10 @@ class GoogleSignInRequest {
       "email": email,
     };
   }
+
+  factory GoogleSignInRequest.fromMap(Map<String, dynamic> map) {
+    return GoogleSignInRequest(
+      email: map['email'],
+    );
+  }
 }
