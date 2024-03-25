@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../data/api/auth/auth.api_client.dart';

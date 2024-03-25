@@ -17,4 +17,5 @@ class Constants {
   static const MOST_FOLLOWED_PROFILE_ENDPOINT = '/profile/most-followed';
   static const FOLLOW_ENDPOINT = '/follows/follow';
   static const UNFOLLOW_ENDPOINT = '/follows/unfollow';
+  static const POST_ENDPOINT = '/post';
 }

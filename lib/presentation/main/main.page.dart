@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/extensions/context.extension.dart';
@@ -15,7 +16,10 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentIndex = 0.rx;
     return Scaffold(
-      appBar: AppBar(toolbarHeight: 0),
+      appBar: AppBar(
+        toolbarHeight: 0,
+        surfaceTintColor: colorTransparent,
+      ),
       body: StreamBuilder<int>(
         stream: currentIndex.stream,
         builder: (context, snapshot) => IndexedStack(

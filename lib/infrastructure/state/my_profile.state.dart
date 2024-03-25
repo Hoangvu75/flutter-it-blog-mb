@@ -4,7 +4,7 @@ import '../../domain/entities/profile.dart';
 
 part 'my_profile.state.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class MyProfileState extends _$MyProfileState {
   @override
   Profile? build() {

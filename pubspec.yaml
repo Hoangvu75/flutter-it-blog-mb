@@ -39,7 +39,6 @@ dependencies:
   loop_page_view: ^1.2.5
   blur: ^3.1.0
   uuid: ^4.3.3
-  sticky_headers: ^0.3.0+2
   dotted_line: ^3.2.2
   timer_builder: ^2.0.0
   animated_text_kit: ^4.2.2
@@ -50,6 +49,7 @@ dependencies:
   firebase_core: ^2.27.1
   flutter_native_splash: ^2.4.0
   form_validation: ^3.1.1
+  flutter_sticky_header: ^0.6.5
 
 dev_dependencies:
   flutter_test:
