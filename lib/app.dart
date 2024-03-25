@@ -20,7 +20,8 @@ class AppState extends State<App> with WidgetsBindingObserver {
       ..maskType = EasyLoadingMaskType.black
       ..userInteractions = false
       ..dismissOnTap = false
-      ..animationStyle = EasyLoadingAnimationStyle.opacity;
+      ..animationStyle = EasyLoadingAnimationStyle.opacity
+      ..displayDuration = const Duration(milliseconds: 3000);
     configureDependencies();
     super.initState();
   }
