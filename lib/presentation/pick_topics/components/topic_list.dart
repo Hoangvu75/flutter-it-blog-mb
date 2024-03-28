@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/extensions/context.extension.dart';
 import '../../../core/extensions/rx.extension.dart';
+import '../../../infrastructure/state/my_profile.state.dart';
+import '../../../infrastructure/state/selected_topics.state.dart';
 import 'topic_item.dart';
 import '../../../core/config/get_it.dart';
 import '../../../core/ui/color.ui.dart';

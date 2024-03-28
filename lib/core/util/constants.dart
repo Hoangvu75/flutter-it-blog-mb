@@ -3,6 +3,7 @@ class Constants {
 
   static const GOOGLE_IOS_CLIENT_ID = '83248458328-2t0i839vdsra85ntrgp6vn904833iled.apps.googleusercontent.com';
   static const ACCESS_TOKEN_KEY = 'ACCESS_TOKEN_KEY';
+  static const FIRST_PICK_TOPIC_KEY = 'FIRST_PICK_TOPIC_KEY';
   static const DEFAULT_AVATAR = 'https://wntwelypmvlkugymiuxf.supabase.co/storage/v1/object/public/avatar/default-avatar.jpeg';
 
 

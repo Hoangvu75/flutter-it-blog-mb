@@ -39,7 +39,7 @@ class AppPages {
   }) {
     return GoRoute(
       path: path,
-      builder: (c, s) => page,
+      builder: (context, state) => page,
     );
   }
 

@@ -7,12 +7,12 @@ part of 'selected_topics.state.dart';
 // **************************************************************************
 
 String _$selectedTopicsStateHash() =>
-    r'aa2f3234acee8d4d477e2b71fa6da0b334b05584';
+    r'6e103b2062475bae60382cb48635587dc530cbe8';
 
 /// See also [SelectedTopicsState].
 @ProviderFor(SelectedTopicsState)
 final selectedTopicsStateProvider =
-    AutoDisposeNotifierProvider<SelectedTopicsState, List<Topic>>.internal(
+    NotifierProvider<SelectedTopicsState, List<Topic>>.internal(
   SelectedTopicsState.new,
   name: r'selectedTopicsStateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final selectedTopicsStateProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$SelectedTopicsState = AutoDisposeNotifier<List<Topic>>;
+typedef _$SelectedTopicsState = Notifier<List<Topic>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

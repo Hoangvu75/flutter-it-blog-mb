@@ -4,7 +4,7 @@ import '../../domain/entities/topic.dart';
 
 part 'selected_topics.state.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class SelectedTopicsState extends _$SelectedTopicsState {
   @override
   List<Topic> build() {
@@ -13,6 +13,10 @@ class SelectedTopicsState extends _$SelectedTopicsState {
 
   void addTopic(Topic topic) {
     state = [...state, topic];
+  }
+
+  void addTopics(List<Topic> topics) {
+    state = [...state, ...topics];
   }
 
   void removeTopic(Topic topic) {
