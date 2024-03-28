@@ -11,7 +11,9 @@ import '../../../domain/entities/post.dart';
 import '../../../domain/repository/post.repository.dart';
 
 class PostList extends StatefulWidget {
-  const PostList({super.key});
+  final String? topicId;
+
+  const PostList({super.key, this.topicId});
 
   @override
   State<PostList> createState() => _PostListState();
@@ -20,13 +22,29 @@ class PostList extends StatefulWidget {
 class _PostListState extends State<PostList> {
   final posts = <Post>[].rx;
   final postRepository = getIt.get<PostRepository>();
+  var currentPage = 0;
 
   @override
   void initState() {
-    postRepository.getPosts().then((res) {
-      posts.add(res.data ?? []);
-    });
+    loadPost();
     super.initState();
+  }
+
+  void loadPost() async {
+    final loadMorePosts = (widget.topicId != null)
+        ? await postRepository.getPostsByTopicId(
+            topicId: widget.topicId!,
+            page: currentPage,
+            size: 10,
+          )
+        : await postRepository.getPosts(
+            page: currentPage,
+            size: 10,
+          );
+    posts.add(
+      [...posts.value, ...loadMorePosts.data ?? []],
+    );
+    currentPage++;
   }
 
   @override
@@ -53,8 +71,7 @@ class _PostListState extends State<PostList> {
                       key: const Key("load_more"),
                       onVisibilityChanged: (info) async {
                         if (info.visibleFraction >= 0.5) {
-                          final loadMorePosts = await postRepository.getPosts();
-                          posts.add([...posts.value, ...loadMorePosts.data ?? []]);
+                          loadPost();
                         }
                       },
                       child: const Center(

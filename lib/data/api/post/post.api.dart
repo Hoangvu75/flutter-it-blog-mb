@@ -11,5 +11,15 @@ abstract class PostApi {
   factory PostApi(Dio dio) = _PostApi;
 
   @GET(Constants.API_HOST + Constants.API_PREFIX + Constants.POST_ENDPOINT)
-  Future<BaseResponse> getRecentPosts();
+  Future<BaseResponse> getRecentPosts(
+    @Query("page") int page,
+    @Query("size") int limit,
+  );
+
+  @GET("${Constants.API_HOST}${Constants.API_PREFIX}${Constants.POST_ENDPOINT}/{topicId}")
+  Future<BaseResponse> getRecentPostsByTopic(
+    @Query("page") int page,
+    @Query("size") int limit,
+    @Path("topicId") String topicId,
+  );
 }

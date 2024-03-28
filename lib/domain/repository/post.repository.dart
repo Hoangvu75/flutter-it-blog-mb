@@ -8,8 +8,35 @@ import '../responses/base.response.dart';
 class PostRepository {
   final apiClient = PostApiClient();
 
-  Future<BaseResponse<List<Post>>> getPosts() async {
-    final response = await apiClient.api.getRecentPosts();
+  Future<BaseResponse<List<Post>>> getPosts({int? page, int? size}) async {
+    final response = await apiClient.api.getRecentPosts(
+      page ?? 0,
+      size ?? 10,
+    );
+    var newResponse = BaseResponse<List<Post>>(
+      code: response.code,
+      success: response.success,
+      data: null,
+      error: response.error,
+    );
+    if (response.success == false) {
+      return newResponse;
+    }
+    var topics = response.parsePaginationList(Post.fromJson);
+    newResponse.data = topics;
+    return newResponse;
+  }
+
+  Future<BaseResponse<List<Post>>> getPostsByTopicId({
+    int? page,
+    int? size,
+    required String topicId,
+  }) async {
+    final response = await apiClient.api.getRecentPostsByTopic(
+      page ?? 0,
+      size ?? 10,
+      topicId,
+    );
     var newResponse = BaseResponse<List<Post>>(
       code: response.code,
       success: response.success,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/ui/color.ui.dart';
 import '../../../core/ui/text.ui.dart';
+import '../../../infrastructure/routing/app_pages.dart';
 
 class ContinueButton extends StatelessWidget {
   const ContinueButton({super.key});
@@ -13,7 +15,7 @@ class ContinueButton extends StatelessWidget {
       child: Material(
         color: colorGreen,
         child: InkWell(
-          onTap: () {},
+          onTap: () => context.go(Routes.MAIN),
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Text(

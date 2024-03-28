@@ -19,9 +19,15 @@ class _PostApi implements PostApi {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<dynamic>> getRecentPosts() async {
+  Future<BaseResponse<dynamic>> getRecentPosts(
+    int page,
+    int limit,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'size': limit,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -33,6 +39,40 @@ class _PostApi implements PostApi {
             .compose(
               _dio.options,
               'https://it-blog-fastify-hoangvu75.koyeb.app/api/post',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BaseResponse<dynamic>.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<dynamic>> getRecentPostsByTopic(
+    int page,
+    int limit,
+    String topicId,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'size': limit,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<dynamic>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post/${topicId}',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 import '../../core/ui/text.ui.dart';
+import '../../infrastructure/state/current_post_topic.state.dart';
 import 'components/post_list.dart';
 import 'components/topic_tab_bar.dart';
 
@@ -47,8 +50,17 @@ class _HomePageState extends State<HomePage> {
         const SliverToBoxAdapter(child: SizedBox(height: 24)),
         SliverStickyHeader(
           header: const TopicTabBar(),
-          sliver: const SliverToBoxAdapter(
-            child: PostList(),
+          sliver: SliverToBoxAdapter(
+            child: Consumer(builder: (context, ref, child) {
+              final topicId = ref.watch(currentPostTopicStateProvider);
+              if (topicId == null) {
+                return PostList(key: UniqueKey());
+              }
+              return PostList(
+                key: UniqueKey(),
+                topicId: topicId,
+              );
+            }),
           ),
         ),
       ],
