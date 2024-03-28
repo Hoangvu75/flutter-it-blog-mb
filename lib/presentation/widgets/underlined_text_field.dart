@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/text.ui.dart';
 
-class UnderlineTextField extends StatelessWidget {
+class UnderlinedTextField extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final String hint;
   final bool obscureText;
 
-  const UnderlineTextField({
+  const UnderlinedTextField({
     super.key,
     required this.controller,
     required this.focusNode,

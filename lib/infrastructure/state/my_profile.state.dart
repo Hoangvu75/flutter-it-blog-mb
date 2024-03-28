@@ -26,7 +26,5 @@ class MyProfileState extends _$MyProfileState {
 
   void setTopics(List<Topic> topics) {
     state = state?.copyWith(favoriteTopics: topics);
-    print('topic set');
-    print(state.toString());
   }
 }

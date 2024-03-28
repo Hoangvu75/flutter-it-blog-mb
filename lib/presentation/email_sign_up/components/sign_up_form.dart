@@ -10,7 +10,7 @@ import '../../../domain/requests/sign.request.dart';
 import '../../../infrastructure/routing/app_pages.dart';
 import '../../../infrastructure/state/is_focus_sign_form.state.dart';
 import '../../widgets/green_button.dart';
-import '../../widgets/underline_text_field.dart';
+import '../../widgets/underlined_text_field.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -45,20 +45,20 @@ class _SignUpFormState extends State<SignUpForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        UnderlineTextField(
+        UnderlinedTextField(
           controller: emailController,
           focusNode: emailFocusNode,
           hint: "Email",
         ),
         const SizedBox(height: 12),
-        UnderlineTextField(
+        UnderlinedTextField(
           controller: passwordController,
           focusNode: passwordFocusNode,
           hint: "Password",
           obscureText: true,
         ),
         const SizedBox(height: 12),
-        UnderlineTextField(
+        UnderlinedTextField(
           controller: confirmPasswordController,
           focusNode: confirmPasswordFocusNode,
           hint: "Confirm password",

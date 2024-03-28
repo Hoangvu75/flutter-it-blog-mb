@@ -16,7 +16,7 @@ import '../../../domain/requests/create_profile.request.dart';
 import '../../../infrastructure/routing/app_pages.dart';
 import '../../../infrastructure/state/is_focus_sign_form.state.dart';
 import '../../widgets/green_button.dart';
-import '../../widgets/underline_text_field.dart';
+import '../../widgets/underlined_text_field.dart';
 
 class ProfileForm extends StatefulWidget {
   const ProfileForm({super.key});
@@ -78,13 +78,13 @@ class _ProfileFormState extends State<ProfileForm> {
             children: [
               Column(
                 children: [
-                  UnderlineTextField(
+                  UnderlinedTextField(
                     controller: firstNameController,
                     focusNode: firstNameFocusNode,
                     hint: "First name",
                   ),
                   const SizedBox(height: 12),
-                  UnderlineTextField(
+                  UnderlinedTextField(
                     controller: lastNameController,
                     focusNode: lastNameFocusNode,
                     hint: "Last name",
@@ -146,13 +146,13 @@ class _ProfileFormState extends State<ProfileForm> {
                     }),
                   ),
                   const SizedBox(height: 12),
-                  UnderlineTextField(
+                  UnderlinedTextField(
                     controller: phoneController,
                     focusNode: phoneFocusNode,
                     hint: "Phone number",
                   ),
                   const SizedBox(height: 12),
-                  UnderlineTextField(
+                  UnderlinedTextField(
                     controller: addressController,
                     focusNode: addressFocusNode,
                     hint: "Address",
@@ -237,13 +237,13 @@ class _ProfileFormState extends State<ProfileForm> {
               ),
               Column(
                 children: [
-                  UnderlineTextField(
+                  UnderlinedTextField(
                     controller: jobController,
                     focusNode: jobFocusNode,
                     hint: "Job title",
                   ),
                   const SizedBox(height: 12),
-                  UnderlineTextField(
+                  UnderlinedTextField(
                     controller: companyController,
                     focusNode: companyFocusNode,
                     hint: "Company name",

@@ -29,7 +29,7 @@ class AppPages {
       _normalRoute(path: Routes.CREATE_PROFILE, page: const CreateProfilePage()),
       _normalRoute(path: Routes.PICK_TOPICS, page: const PickTopicsPage()),
       _normalRoute(path: Routes.FOLLOW_OTHERS, page: const FollowOthers()),
-      _normalRoute(path: Routes.MAIN, page: const MainPage()),
+      _normalRoute(path: Routes.MAIN, page: MainPage()),
     ],
   );
 

@@ -12,7 +12,7 @@ import '../../../infrastructure/services/storage.service.dart';
 import '../../../infrastructure/state/is_focus_sign_form.state.dart';
 import '../../../infrastructure/state/my_profile.state.dart';
 import '../../widgets/green_button.dart';
-import '../../widgets/underline_text_field.dart';
+import '../../widgets/underlined_text_field.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -42,13 +42,13 @@ class _SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        UnderlineTextField(
+        UnderlinedTextField(
           controller: emailController,
           focusNode: emailFocusNode,
           hint: "Email",
         ),
         const SizedBox(height: 12),
-        UnderlineTextField(
+        UnderlinedTextField(
           controller: passwordController,
           focusNode: passwordFocusNode,
           hint: "Password",

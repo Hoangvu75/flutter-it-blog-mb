@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
@@ -54,10 +53,10 @@ class _HomePageState extends State<HomePage> {
             child: Consumer(builder: (context, ref, child) {
               final topicId = ref.watch(currentPostTopicStateProvider);
               if (topicId == null) {
-                return PostList(key: UniqueKey());
+                return const PostList();
               }
               return PostList(
-                key: UniqueKey(),
+                key: ValueKey(topicId),
                 topicId: topicId,
               );
             }),
