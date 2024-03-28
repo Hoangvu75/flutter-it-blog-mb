@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/ui/color.ui.dart';
 import '../../core/ui/text.ui.dart';
 import '../widgets/outlined_text_field.dart';
 
@@ -35,10 +36,36 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                OutlinedTextField(
+                TextFormField(
                   controller: controller,
                   focusNode: focusNode,
-                  hint: "Search for any topics",
+                  style: textLargeBody,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12
+                    ),
+                    isDense: true,
+                    hintText: "Search for any topics",
+                    hintStyle: textLargeBody.copyWith(color: colorGreyText),
+                    focusColor: colorPrimary,
+                    border: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: colorGreyText,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(32),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: colorPrimary,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(32),
+                    ),
+                  ),
+                  cursorColor: colorPrimary,
+                  onFieldSubmitted: (_) => focusNode.unfocus(),
                 ),
               ],
             ),

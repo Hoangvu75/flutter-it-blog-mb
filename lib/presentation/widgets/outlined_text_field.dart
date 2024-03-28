@@ -49,6 +49,7 @@ class OutlinedTextField extends StatelessWidget {
       ),
       obscureText: obscureText,
       cursorColor: colorPrimary,
+      onFieldSubmitted: (_) => focusNode.unfocus(),
     );
   }
 }
