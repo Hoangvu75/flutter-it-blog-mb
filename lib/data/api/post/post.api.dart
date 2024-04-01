@@ -16,10 +16,18 @@ abstract class PostApi {
     @Query("size") int limit,
   );
 
-  @GET("${Constants.API_HOST}${Constants.API_PREFIX}${Constants.POST_ENDPOINT}/{topicId}")
+  @GET(
+      "${Constants.API_HOST}${Constants.API_PREFIX}${Constants.POST_ENDPOINT}/{topicId}")
   Future<BaseResponse> getRecentPostsByTopic(
     @Query("page") int page,
     @Query("size") int limit,
     @Path("topicId") String topicId,
+  );
+
+  @GET("${Constants.API_HOST}${Constants.API_PREFIX}${Constants.POST_SEARCH_ENDPOINT}/{searchTopic}")
+  Future<BaseResponse> searchPostsByTopic(
+    @Query("page") int page,
+    @Query("size") int limit,
+    @Path("searchTopic") String searchTopic,
   );
 }

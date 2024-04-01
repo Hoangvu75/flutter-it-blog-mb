@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 import '../../core/ui/text.ui.dart';
 import 'components/search_field.dart';
+import 'components/search_post_list.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
@@ -25,9 +27,14 @@ class SearchPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              const SearchField(),
             ],
           ),
+        ),
+        SliverStickyHeader(
+          header: const SearchField(),
+          sliver: const SliverToBoxAdapter(
+            child: SearchPostList()
+          )
         ),
       ],
     );

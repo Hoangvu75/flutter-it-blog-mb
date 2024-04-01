@@ -19,4 +19,5 @@ class Constants {
   static const FOLLOW_ENDPOINT = '/follows/follow';
   static const UNFOLLOW_ENDPOINT = '/follows/unfollow';
   static const POST_ENDPOINT = '/post';
+  static const POST_SEARCH_ENDPOINT = '/post/search';
 }

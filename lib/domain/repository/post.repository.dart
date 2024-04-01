@@ -50,4 +50,28 @@ class PostRepository {
     newResponse.data = topics;
     return newResponse;
   }
+
+  Future<BaseResponse<List<Post>>> searchPost({
+    int? page,
+    int? size,
+    required String searchKey,
+  }) async {
+    final response = await apiClient.api.searchPostsByTopic(
+      page ?? 0,
+      size ?? 10,
+      searchKey,
+    );
+    var newResponse = BaseResponse<List<Post>>(
+      code: response.code,
+      success: response.success,
+      data: null,
+      error: response.error,
+    );
+    if (response.success == false) {
+      return newResponse;
+    }
+    var topics = response.parsePaginationList(Post.fromJson);
+    newResponse.data = topics;
+    return newResponse;
+  }
 }
