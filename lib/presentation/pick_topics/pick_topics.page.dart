@@ -20,7 +20,7 @@ class PickTopicsPage extends StatelessWidget {
       appBar: AppBar(
         surfaceTintColor: colorTransparent,
         title: Text(
-          "Welcome to iTBlog",
+          "iTBlog topics",
           style: textTitle.copyWith(
             fontWeight: FontWeight.w600,
           ),

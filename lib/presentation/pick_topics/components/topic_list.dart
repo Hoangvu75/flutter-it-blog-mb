@@ -1,9 +1,8 @@
+import 'package:easy_ads_flutter/easy_ads_flutter.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/extensions/context.extension.dart';
 import '../../../core/extensions/rx.extension.dart';
-import '../../../infrastructure/state/my_profile.state.dart';
-import '../../../infrastructure/state/selected_topics.state.dart';
+import '../../../core/firebase/google_ad_id_manager.dart';
 import 'topic_item.dart';
 import '../../../core/config/get_it.dart';
 import '../../../core/ui/color.ui.dart';
@@ -37,27 +36,35 @@ class _TopicListState extends State<TopicList> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: StreamBuilder<List<Topic>>(
-        stream: topicList.stream,
-        builder: (context, snapshot) => topicList.value.isEmpty
-            ? SizedBox(
-                height: screenHeight(context) * 0.5,
-                child: const Center(
-                  child: CircularProgressIndicator(color: colorPrimary),
-                ),
-              )
-            : Wrap(
-                alignment: WrapAlignment.center,
-                children: List.generate(
-                  topicList.value.length,
-                  (index) => TopicItem(
-                    topic: topicList.value[index],
+    return Column(
+      children: [
+        EasyBannerAd(
+          adId: adIdManager.admobAdIds!.bannerId!,
+          adSize: AdSize.fullBanner,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: StreamBuilder<List<Topic>>(
+            stream: topicList.stream,
+            builder: (context, snapshot) => topicList.value.isEmpty
+                ? SizedBox(
+                    height: screenHeight(context) * 0.5,
+                    child: const Center(
+                      child: CircularProgressIndicator(color: colorPrimary),
+                    ),
+                  )
+                : Wrap(
+                    alignment: WrapAlignment.center,
+                    children: List.generate(
+                      topicList.value.length,
+                      (index) => TopicItem(
+                        topic: topicList.value[index],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-      ),
+          ),
+        ),
+      ],
     );
   }
 }

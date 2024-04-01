@@ -1,8 +1,10 @@
+import 'package:easy_ads_flutter/easy_ads_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../core/config/get_it.dart';
 import '../../../core/extensions/rx.extension.dart';
+import '../../../core/firebase/google_ad_id_manager.dart';
 import '../../../core/ui/color.ui.dart';
 import '../../../core/ui/screen.ui.dart';
 import '../../../core/ui/text.ui.dart';
@@ -63,7 +65,16 @@ class _PostListState extends State<PostList> {
                 posts.value.length,
                 (index) => _PostItem(post: posts.value[index]),
               )
-                ..insert(0, const SizedBox(height: 24))
+                ..insert(
+                  2,
+                  EasyBannerAd(
+                    adId: adIdManager.admobAdIds!.bannerId!,
+                    adSize: AdSize(
+                      width: screenWidth(context).toInt(),
+                      height: 160,
+                    ),
+                  ),
+                )
                 ..add(
                   Padding(
                     padding: const EdgeInsets.all(32),

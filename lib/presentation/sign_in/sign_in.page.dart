@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:easy_ads_flutter/easy_ads_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../core/config/get_it.dart';
 import '../../core/extensions/context.extension.dart';
+import '../../core/firebase/google_ad_id_manager.dart';
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/screen.ui.dart';
 import '../../core/ui/text.ui.dart';
@@ -36,62 +39,75 @@ class SignInPage extends StatelessWidget {
         toolbarHeight: 0,
         surfaceTintColor: colorTransparent,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: screenWidth(context) * 0.3,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth(context) * 0.3,
+                    ),
+                    child: Image.asset(
+                      Assets.imagesAppLogo,
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  const Text(
+                    "Human stories\nand ideas.",
+                    style: textVeryLargeHeader,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: Text(
+                      "Discover perspectives that deepen understanding.",
+                      style: textSmallTitle,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  Consumer(
+                    builder: (context, ref, child) {
+                      switch (ref.watch(signTypeStateProvider)) {
+                        case SignTypeEnum.signUp:
+                          return const SignUpButtons();
+                        case SignTypeEnum.signIn:
+                          return const SignInButtons();
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  const ToggleSign(),
+                  const SizedBox(height: 48),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Consumer(
+                      builder: (context, ref, child) {
+                        switch (ref.watch(signTypeStateProvider)) {
+                          case SignTypeEnum.signUp:
+                            return const SignUpTerms();
+                          case SignTypeEnum.signIn:
+                            return const SignInHelpAndTerms();
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 32)
+                ],
               ),
-              child: Image.asset(
-                Assets.imagesAppLogo,
-              ),
             ),
-            const SizedBox(height: 40),
-            const Text(
-              "Human stories\nand ideas.",
-              style: textVeryLargeHeader,
-              textAlign: TextAlign.center,
+          ),
+          EasyBannerAd(
+            adId: adIdManager.admobAdIds!.bannerId!,
+            adSize: AdSize(
+              width: screenWidth(context).toInt(),
+              height: 80,
             ),
-            const SizedBox(height: 24),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Text(
-                "Discover perspectives that deepen understanding.",
-                style: textSmallTitle,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(height: 32),
-            Consumer(
-              builder: (context, ref, child) {
-                switch (ref.watch(signTypeStateProvider)) {
-                  case SignTypeEnum.signUp:
-                    return const SignUpButtons();
-                  case SignTypeEnum.signIn:
-                    return const SignInButtons();
-                }
-              },
-            ),
-            const SizedBox(height: 24),
-            const ToggleSign(),
-            const SizedBox(height: 48),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Consumer(
-                builder: (context, ref, child) {
-                  switch (ref.watch(signTypeStateProvider)) {
-                    case SignTypeEnum.signUp:
-                      return const SignUpTerms();
-                    case SignTypeEnum.signIn:
-                      return const SignInHelpAndTerms();
-                  }
-                },
-              ),
-            ),
-            const SizedBox(height: 32)
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
