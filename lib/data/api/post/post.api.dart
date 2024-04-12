@@ -24,10 +24,17 @@ abstract class PostApi {
     @Path("topicId") String topicId,
   );
 
-  @GET("${Constants.API_HOST}${Constants.API_PREFIX}${Constants.POST_SEARCH_ENDPOINT}/{searchTopic}")
+  @GET(
+      "${Constants.API_HOST}${Constants.API_PREFIX}${Constants.POST_SEARCH_ENDPOINT}/{searchTopic}")
   Future<BaseResponse> searchPostsByTopic(
     @Query("page") int page,
     @Query("size") int limit,
     @Path("searchTopic") String searchTopic,
+  );
+
+  @GET("${Constants.API_HOST}${Constants.API_PREFIX}${Constants.FAVORITE_POST}")
+  Future<BaseResponse> getFavoritePost(
+    @Query("page") int page,
+    @Query("size") int limit,
   );
 }

@@ -8,6 +8,7 @@ import '../../core/ui/screen.ui.dart';
 import '../../core/util/constants.dart';
 import '../../infrastructure/state/my_profile.state.dart';
 import '../home/home.page.dart';
+import '../library/library.page.dart';
 import '../search/search.page.dart';
 
 class MainPage extends StatelessWidget {
@@ -30,11 +31,7 @@ class MainPage extends StatelessWidget {
             children: const [
               HomePage(),
               SearchPage(),
-              SizedBox(
-                width: double.infinity,
-                height: double.infinity,
-                child: Center(child: Text('Library Page')),
-              ),
+              LibraryPage(),
               SizedBox(
                 width: double.infinity,
                 height: double.infinity,

@@ -74,4 +74,26 @@ class PostRepository {
     newResponse.data = topics;
     return newResponse;
   }
+
+  Future<BaseResponse<List<Post>>> getFavoritePosts({
+    int? page,
+    int? size,
+  }) async {
+    final response = await apiClient.api.getFavoritePost(
+      page ?? 0,
+      size ?? 10,
+    );
+    var newResponse = BaseResponse<List<Post>>(
+      code: response.code,
+      success: response.success,
+      data: null,
+      error: response.error,
+    );
+    if (response.success == false) {
+      return newResponse;
+    }
+    var topics = response.parsePaginationList(Post.fromJson);
+    newResponse.data = topics;
+    return newResponse;
+  }
 }
