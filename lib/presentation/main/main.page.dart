@@ -10,6 +10,7 @@ import '../../infrastructure/state/my_profile.state.dart';
 import '../home/home.page.dart';
 import '../library/library.page.dart';
 import '../search/search.page.dart';
+import '../settings_page/settings.page.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({super.key});
@@ -32,11 +33,7 @@ class MainPage extends StatelessWidget {
               HomePage(),
               SearchPage(),
               LibraryPage(),
-              SizedBox(
-                width: double.infinity,
-                height: double.infinity,
-                child: Center(child: Text('Settings Page')),
-              ),
+              SettingsPage(),
             ],
           ),
         ),
