@@ -32,9 +32,22 @@ abstract class PostApi {
     @Path("searchTopic") String searchTopic,
   );
 
-  @GET("${Constants.API_HOST}${Constants.API_PREFIX}${Constants.FAVORITE_POST}")
+  @GET(
+      "${Constants.API_HOST}${Constants.API_PREFIX}${Constants.FAVORITE_POST_ENDPOINT}")
   Future<BaseResponse> getFavoritePost(
     @Query("page") int page,
     @Query("size") int limit,
+  );
+
+  @POST(
+      "${Constants.API_HOST}${Constants.API_PREFIX}${Constants.FAVORITE_POST_ENDPOINT_2}/{postId}")
+  Future<BaseResponse> addFavoritePost(
+    @Path("postId") String postId,
+  );
+
+  @DELETE(
+      "${Constants.API_HOST}${Constants.API_PREFIX}${Constants.FAVORITE_POST_ENDPOINT_2}/{postId}")
+  Future<BaseResponse> removeFavoritePost(
+    @Path("postId") String postId,
   );
 }

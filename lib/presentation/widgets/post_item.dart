@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/extensions/context.extension.dart';
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/screen.ui.dart';
 import '../../core/ui/text.ui.dart';
 import '../../core/util/time.util.dart';
 import '../../domain/entities/post.dart';
+import '../../infrastructure/state/favorite_posts.state.dart';
 
 class PostItem extends StatelessWidget {
   final Post post;
@@ -100,10 +103,38 @@ class PostItem extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  const Icon(
-                    Icons.bookmark_add_outlined,
-                    size: 20,
-                  ),
+                  Consumer(builder: (context, ref, child) {
+                    final isBookmarked = ref.watch(
+                      favoritePostsStateProvider.select(
+                        (posts) {
+                          for (var favoritePost in posts) {
+                            if (favoritePost.id == post.id) {
+                              return true;
+                            }
+                          }
+                          return false;
+                        },
+                      ),
+                    );
+                    return IconButton(
+                      onPressed: () {
+                        if (isBookmarked) {
+                          context.provider
+                              .read(favoritePostsStateProvider.notifier)
+                              .removePost(post);
+                          return;
+                        }
+                        context.provider
+                            .read(favoritePostsStateProvider.notifier)
+                            .addPost(post);
+                      },
+                      icon: Icon(
+                        isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
+                        size: 20,
+                        color: isBookmarked ? colorPrimary : colorGreyText,
+                      ),
+                    );
+                  }),
                   const SizedBox(width: 24),
                   const Icon(
                     Icons.share_outlined,

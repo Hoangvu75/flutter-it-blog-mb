@@ -20,5 +20,8 @@ class Constants {
   static const UNFOLLOW_ENDPOINT = '/follows/unfollow';
   static const POST_ENDPOINT = '/post';
   static const POST_SEARCH_ENDPOINT = '/post/search';
-  static const FAVORITE_POST = '/post/favorite-post';
+  static const FAVORITE_POST_ENDPOINT = '/post/favorite-post';
+  static const FAVORITE_POST_ENDPOINT_2 = '/favorite-post';
+  static const FOLLOWING_USERS_ENDPOINT = '/profile/followers';
+  static const FOLLOWER_USERS_ENDPOINT = '/profile/followings';
 }

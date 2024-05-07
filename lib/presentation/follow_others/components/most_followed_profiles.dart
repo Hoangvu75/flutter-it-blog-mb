@@ -17,7 +17,7 @@ class MostFollowedProfiles extends StatefulWidget {
 
 class _MostFollowedProfilesState extends State<MostFollowedProfiles> {
   final mostFollowedProfiles = <MostFollowedProfile>[].rx;
-  final ProfileRepository profileRepository = getIt.get<ProfileRepository>();
+  final profileRepository = getIt.get<ProfileRepository>();
 
   @override
   void initState() {
