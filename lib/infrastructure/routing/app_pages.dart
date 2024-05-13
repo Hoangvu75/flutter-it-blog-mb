@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
+import '../../presentation/create_post/create_post.page.dart';
 import '../../presentation/create_profile/create_profile.page.dart';
 import '../../presentation/email_sign_in/email_sign_in.page.dart';
 import '../../presentation/email_sign_up/email_sign_up.page.dart';
@@ -10,6 +11,7 @@ import '../../presentation/main/main.page.dart';
 import '../../presentation/pick_topics/pick_topics.page.dart';
 import '../../presentation/sign_in/sign_in.page.dart';
 import '../../presentation/splash/splash.page.dart';
+import '../../presentation/upload_post/upload_post.page.dart';
 
 part 'app_routes.dart';
 
@@ -30,6 +32,8 @@ class AppPages {
       _normalRoute(path: Routes.PICK_TOPICS, page: const PickTopicsPage()),
       _normalRoute(path: Routes.FOLLOW_OTHERS, page: const FollowOthers()),
       _normalRoute(path: Routes.MAIN, page: MainPage()),
+      _swipeableRoute(path: Routes.CREATE_POST, page: const CreatePostPage()),
+      _swipeableRoute(path: Routes.UPLOAD_POST, page: const UploadPostPage()),
     ],
   );
 

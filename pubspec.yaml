@@ -52,6 +52,7 @@ dependencies:
   flutter_sticky_header: ^0.6.5
   easy_ads_flutter:
     path: flutter_ads
+  flutter_quill: ^9.3.11
 
 dev_dependencies:
   flutter_test:

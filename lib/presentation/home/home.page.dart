@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/ui/text.ui.dart';
+import '../../infrastructure/routing/app_pages.dart';
 import '../../infrastructure/state/current_post_topic.state.dart';
 import 'components/post_list.dart';
 import 'components/topic_tab_bar.dart';
@@ -27,7 +29,6 @@ class _HomePageState extends State<HomePage> {
               right: 8,
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Home",
@@ -35,10 +36,18 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                const Spacer(),
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(
                     Icons.notifications_active_outlined,
+                    size: 24,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () => context.push(Routes.CREATE_POST),
+                  icon: const Icon(
+                    Icons.create_outlined,
                     size: 24,
                   ),
                 ),
