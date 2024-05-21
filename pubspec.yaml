@@ -53,6 +53,7 @@ dependencies:
   easy_ads_flutter:
     path: flutter_ads
   flutter_quill: ^9.3.11
+  image_picker: ^1.1.1
 
 dev_dependencies:
   flutter_test:

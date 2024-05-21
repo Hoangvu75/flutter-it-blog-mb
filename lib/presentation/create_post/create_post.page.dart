@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/text.ui.dart';
+import '../../infrastructure/routing/app_pages.dart';
 
 class CreatePostPage extends StatefulWidget {
   const CreatePostPage({super.key});
@@ -27,9 +28,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-
-            },
+            onPressed: () async => await context.push(Routes.UPLOAD_POST),
             icon: const Icon(
               Icons.check,
               size: 24,
