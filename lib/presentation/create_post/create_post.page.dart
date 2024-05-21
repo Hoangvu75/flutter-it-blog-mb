@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/extensions/context.extension.dart';
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/text.ui.dart';
+import '../../core/util/file_helper.dart';
 import '../../infrastructure/routing/app_pages.dart';
+import '../../infrastructure/state/creating_post.state.dart';
 
 class CreatePostPage extends StatefulWidget {
   const CreatePostPage({super.key});
@@ -15,6 +20,8 @@ class CreatePostPage extends StatefulWidget {
 
 class _CreatePostPageState extends State<CreatePostPage> {
   final quillController = QuillController.basic();
+  var contentFile = null as File?;
+  final fileHelper = FileHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +35,17 @@ class _CreatePostPageState extends State<CreatePostPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () async => await context.push(Routes.UPLOAD_POST),
+            onPressed: () async {
+              contentFile = await fileHelper.createFile(
+                quillController.document.toPlainText(),
+              );
+              navContext?.provider
+                  .read(creatingPostStateProvider.notifier)
+                  .setContent(
+                    contentFile,
+                  );
+              await navContext?.push(Routes.UPLOAD_POST);
+            },
             icon: const Icon(
               Icons.check,
               size: 24,
