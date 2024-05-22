@@ -62,4 +62,9 @@ class CreatingPost {
       topicIds: topicIds ?? this.topicIds,
     );
   }
+
+  @override
+  String toString() {
+    return 'CreatingPost{title: $title, description: $description, content: $content, thumbnail: $thumbnail, topicIds: $topicIds}';
+  }
 }

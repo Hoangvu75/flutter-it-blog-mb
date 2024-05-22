@@ -12,6 +12,7 @@ abstract class Routes {
   static const MAIN = _Paths.MAIN;
   static const CREATE_POST = _Paths.CREATE_POST;
   static const UPLOAD_POST = _Paths.UPLOAD_POST;
+  static const READ_POST = _Paths.READ_POST;
 }
 
 abstract class _Paths {
@@ -26,4 +27,5 @@ abstract class _Paths {
   static const MAIN = '/main';
   static const CREATE_POST = '/create-post';
   static const UPLOAD_POST = '/upload-post';
+  static const READ_POST = '/read-post';
 }

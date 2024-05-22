@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -49,5 +51,15 @@ abstract class PostApi {
       "${Constants.API_HOST}${Constants.API_PREFIX}${Constants.FAVORITE_POST_ENDPOINT_2}/{postId}")
   Future<BaseResponse> removeFavoritePost(
     @Path("postId") String postId,
+  );
+  
+  @POST(Constants.API_HOST + Constants.API_PREFIX + Constants.POST_ENDPOINT)
+  @MultiPart()
+  Future<BaseResponse> createPost(
+    @Part() File content,
+    @Part() File thumbnail,
+    @Part() String title,
+    @Part() String description,
+    @Part() List<String> topicIds,
   );
 }

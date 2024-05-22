@@ -9,6 +9,7 @@ import '../../presentation/email_sign_up/email_sign_up.page.dart';
 import '../../presentation/follow_others/follow_others.page.dart';
 import '../../presentation/main/main.page.dart';
 import '../../presentation/pick_topics/pick_topics.page.dart';
+import '../../presentation/read_post/read_post.page.dart';
 import '../../presentation/sign_in/sign_in.page.dart';
 import '../../presentation/splash/splash.page.dart';
 import '../../presentation/upload_post/upload_post.page.dart';
@@ -34,6 +35,7 @@ class AppPages {
       _normalRoute(path: Routes.MAIN, page: MainPage()),
       _swipeableRoute(path: Routes.CREATE_POST, page: const CreatePostPage()),
       _swipeableRoute(path: Routes.UPLOAD_POST, page: const UploadPostPage()),
+      _swipeableRoute(path: Routes.READ_POST, page: const ReadPostPage()),
     ],
   );
 

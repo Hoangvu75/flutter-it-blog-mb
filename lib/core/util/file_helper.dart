@@ -22,8 +22,13 @@ class FileHelper {
     return file.writeAsString(content);
   }
 
-  Future<void> deleteFile() async {
+  Future<void> deleteContentFile() async {
     final file = await _localFile;
+    await file.delete();
+  }
+
+  Future<void> deleteFile(String filePath) async {
+    final file = File(filePath);
     await file.delete();
   }
 }

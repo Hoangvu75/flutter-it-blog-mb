@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:injectable/injectable.dart';
 
 import '../../data/api/post/post.api_client.dart';
+import '../../infrastructure/state/creating_post.state.dart';
 import '../entities/post.dart';
 import '../responses/base.response.dart';
 
@@ -95,5 +98,22 @@ class PostRepository {
     var topics = response.parsePaginationList(Post.fromJson);
     newResponse.data = topics;
     return newResponse;
+  }
+
+  Future<BaseResponse> createPost({
+    required CreatingPost creatingPost
+  }) async {
+    final response = await apiClient.api.createPost(
+      creatingPost.content!,
+      creatingPost.thumbnail!,
+      creatingPost.title!,
+      creatingPost.description!,
+      creatingPost.topicIds!,
+    );
+    return BaseResponse(
+      code: response.code,
+      success: response.success,
+      error: response.error,
+    );
   }
 }

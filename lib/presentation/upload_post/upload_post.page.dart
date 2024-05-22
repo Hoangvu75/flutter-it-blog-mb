@@ -5,11 +5,15 @@ import 'package:flutter_scale_tap/flutter_scale_tap.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../core/config/get_it.dart';
+import '../../core/extensions/context.extension.dart';
 import '../../core/extensions/rx.extension.dart';
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/text.ui.dart';
+import '../../core/util/file_helper.dart';
 import '../../domain/entities/topic.dart';
+import '../../domain/repository/post.repository.dart';
 import '../../domain/repository/topic.repository.dart';
+import '../../infrastructure/state/creating_post.state.dart';
 import 'components/post_topic_item.dart';
 
 class UploadPostPage extends StatefulWidget {
@@ -24,6 +28,10 @@ class _UploadPostPageState extends State<UploadPostPage> {
   final topicRepository = getIt.get<TopicRepository>();
   final myTopics = <Topic>[].rx;
   final thumbnailImage = (null as XFile?).rx;
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final postRepository = getIt.get<PostRepository>();
+  final fileHelper = FileHelper();
 
   @override
   void initState() {
@@ -54,7 +62,18 @@ class _UploadPostPageState extends State<UploadPostPage> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.only(left: 32, right: 32, bottom: 16),
           child: ScaleTap(
-            onPressed: () => {},
+            onPressed: () async {
+              context.provider.read(creatingPostStateProvider.notifier)
+                ..setTitle(titleController.text)
+                ..setDescription(descriptionController.text)
+                ..setTopicIds(myTopics.value.map((e) => e.id!).toList())
+                ..setThumbnail(File(thumbnailImage.value!.path));
+              await postRepository.createPost(
+                creatingPost: context.provider.read(creatingPostStateProvider),
+              );
+              await fileHelper.deleteContentFile();
+              await fileHelper.deleteFile(thumbnailImage.value!.path);
+            },
             child: Container(
               width: double.infinity,
               height: 48,
@@ -79,11 +98,28 @@ class _UploadPostPageState extends State<UploadPostPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: titleController,
+                  decoration: const InputDecoration(
                     hintText: "Enter your post title",
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: colorPrimary,
+                      ),
+                    ),
+                  ),
+                  cursorColor: colorPrimary,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TextField(
+                  controller: descriptionController,
+                  decoration: const InputDecoration(
+                    hintText: "Enter your post description",
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: colorPrimary,

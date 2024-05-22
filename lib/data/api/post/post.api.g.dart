@@ -206,6 +206,65 @@ class _PostApi implements PostApi {
     return value;
   }
 
+  @override
+  Future<BaseResponse<dynamic>> createPost(
+    File content,
+    File thumbnail,
+    String title,
+    String description,
+    List<String> topicIds,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.files.add(MapEntry(
+      'content',
+      MultipartFile.fromFileSync(
+        content.path,
+        filename: content.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    _data.files.add(MapEntry(
+      'thumbnail',
+      MultipartFile.fromFileSync(
+        thumbnail.path,
+        filename: thumbnail.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    _data.fields.add(MapEntry(
+      'title',
+      title,
+    ));
+    _data.fields.add(MapEntry(
+      'description',
+      description,
+    ));
+    topicIds.forEach((i) {
+      _data.fields.add(MapEntry('topicIds', i));
+    });
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+            .compose(
+              _dio.options,
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BaseResponse<dynamic>.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
