@@ -52,7 +52,7 @@ abstract class PostApi {
   Future<BaseResponse> removeFavoritePost(
     @Path("postId") String postId,
   );
-  
+
   @POST(Constants.API_HOST + Constants.API_PREFIX + Constants.POST_ENDPOINT)
   @MultiPart()
   Future<BaseResponse> createPost(
@@ -62,4 +62,11 @@ abstract class PostApi {
     @Part() String description,
     @Part() List<String> topicIds,
   );
+
+  @GET("${Constants.API_HOST}${Constants.API_PREFIX}${Constants.POST_LIKE_ENDPOINT}/{postId}")
+  Future<BaseResponse> getPostLikes(
+    @Path("postId") String postId,
+  );
+
+
 }
