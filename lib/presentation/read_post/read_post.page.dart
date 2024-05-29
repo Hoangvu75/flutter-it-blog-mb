@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 import '../../core/config/get_it.dart';
@@ -18,6 +16,7 @@ import '../../domain/entities/post.dart';
 import '../../domain/entities/profile.dart';
 import '../../domain/repository/post.repository.dart';
 import '../../infrastructure/state/current_reading_post.state.dart';
+import '../../infrastructure/state/my_profile.state.dart';
 
 class ReadPostPage extends StatefulWidget {
   const ReadPostPage({super.key});
@@ -204,81 +203,113 @@ class _ReadPostPageState extends State<ReadPostPage> {
                               const Text("Comments", style: textTitle),
                               const SizedBox(height: 16),
                               Expanded(
-                                child: ListView.builder(
-                                  itemCount: comments.value.length,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    final comment = comments.value[index];
-                                    return Container(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              CircleAvatar(
-                                                radius: 12,
-                                                backgroundImage: NetworkImage(
-                                                  comment.author!.avatarUrl ??
-                                                      Constants.DEFAULT_AVATAR,
+                                child: StreamBuilder<List<Comment>>(
+                                    stream: comments.stream,
+                                    builder: (context, snapshot) {
+                                      return ListView.builder(
+                                        itemCount: comments.value.length,
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          final comment = comments.value[index];
+                                          return Container(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 12,
+                                                      backgroundImage:
+                                                          NetworkImage(
+                                                        comment.author!
+                                                                .avatarUrl ??
+                                                            Constants
+                                                                .DEFAULT_AVATAR,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 8),
+                                                    Text(
+                                                      "${comment.author?.firstName} ${comment.author?.lastName}",
+                                                      style: textBody,
+                                                    ),
+                                                    const Spacer(),
+                                                    Text(
+                                                      TimeUtil.getTimeAgo(
+                                                          comment.createdAt!),
+                                                      style:
+                                                          textCaption.copyWith(
+                                                        color: colorGreyText,
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                              const SizedBox(width: 8),
-                                              Text(
-                                                "${comment.author?.firstName} ${comment.author?.lastName}",
-                                                style: textBody,
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                TimeUtil.getTimeAgo(
-                                                    comment.createdAt!),
-                                                style: textCaption.copyWith(
-                                                  color: colorGreyText,
-                                                  fontStyle: FontStyle.italic,
+                                                const SizedBox(height: 8),
+                                                Text(
+                                                  comment.content.toString(),
+                                                  style: textCaption.copyWith(
+                                                    color: colorGreyText,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 8),
-                                          Text(
-                                            comment.content.toString(),
-                                            style: textCaption.copyWith(
-                                              color: colorGreyText,
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
+                                          );
+                                        },
+                                      );
+                                    }),
                               ),
-                              TextFormField(
-                                style: textLargeBody,
-                                decoration: InputDecoration(
-                                  contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                                  isDense: true,
-                                  hintText: "Write a comment...",
-                                  hintStyle: textLargeBody.copyWith(color: colorGreyText),
-                                  focusColor: colorPrimary,
-                                  border: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: colorGreyText,
-                                      width: 1,
+                              Builder(
+                                builder: (context) {
+                                  final commentController = TextEditingController();
+                                  return TextFormField(
+                                    controller: commentController,
+                                    style: textLargeBody,
+                                    decoration: InputDecoration(
+                                      contentPadding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      isDense: true,
+                                      hintText: "Write a comment...",
+                                      hintStyle: textLargeBody.copyWith(
+                                          color: colorGreyText),
+                                      focusColor: colorPrimary,
+                                      border: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: colorGreyText,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(32),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: colorPrimary,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(32),
+                                      ),
                                     ),
-                                    borderRadius: BorderRadius.circular(32),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: colorPrimary,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(32),
-                                  ),
-                                ),
-                                cursorColor: colorPrimary,
-                                onFieldSubmitted: (_) async {},
+                                    cursorColor: colorPrimary,
+                                    onFieldSubmitted: (cmt) async {
+                                      final newComment = Comment(
+                                        id: null,
+                                        createdAt: DateTime.now()
+                                            .millisecondsSinceEpoch
+                                            .toString(),
+                                        content: cmt.toString(),
+                                        isRepliedComment: false,
+                                        repliedComments: [],
+                                        author: context.provider
+                                            .read(myProfileStateProvider),
+                                      );
+                                      comments.sink.add(
+                                        [newComment, ...comments.value],
+                                      );
+                                      commentController.clear();
+                                    },
+                                  );
+                                }
                               ),
                             ],
                           ),
