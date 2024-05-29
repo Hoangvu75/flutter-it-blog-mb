@@ -107,6 +107,74 @@ class _ReadPostPageState extends State<ReadPostPage> {
           ],
         ),
       ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        margin: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: colorSecondary,
+          border: Border.all(
+            color: colorGreyText.withOpacity(0.5),
+          ),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: colorGreyText.withOpacity(0.1),
+              blurRadius: 8,
+              offset: const Offset(0, -5),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Like",
+                      style: textLargeBody.copyWith(
+                        color: colorPrimary,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      "(0)",
+                      style: textLargeBody.copyWith(
+                        color: colorGreyText,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: TextButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Comment",
+                      style: textLargeBody.copyWith(
+                        color: colorPrimary,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      "(0)",
+                      style: textLargeBody.copyWith(
+                        color: colorGreyText,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }
