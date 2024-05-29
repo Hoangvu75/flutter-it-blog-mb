@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 import '../../core/extensions/context.extension.dart';
-import '../../core/extensions/rx.extension.dart';
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/text.ui.dart';
 import '../../core/util/constants.dart';
