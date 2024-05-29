@@ -1,10 +1,10 @@
-import 'dart:io';
-
 import 'package:injectable/injectable.dart';
 
 import '../../data/api/post/post.api_client.dart';
 import '../../infrastructure/state/creating_post.state.dart';
+import '../entities/comment.dart';
 import '../entities/post.dart';
+import '../entities/profile.dart';
 import '../responses/base.response.dart';
 
 @lazySingleton
@@ -100,9 +100,7 @@ class PostRepository {
     return newResponse;
   }
 
-  Future<BaseResponse> createPost({
-    required CreatingPost creatingPost
-  }) async {
+  Future<BaseResponse> createPost({required CreatingPost creatingPost}) async {
     final response = await apiClient.api.createPost(
       creatingPost.content!,
       creatingPost.thumbnail!,
@@ -115,5 +113,41 @@ class PostRepository {
       success: response.success,
       error: response.error,
     );
+  }
+
+  Future<BaseResponse<List<Profile>>> getPostLikeProfiles({
+    required String postId,
+  }) async {
+    final response = await apiClient.api.getPostLikes(postId);
+    var newResponse = BaseResponse<List<Profile>>(
+      code: response.code,
+      success: response.success,
+      data: null,
+      error: response.error,
+    );
+    if (response.success == false) {
+      return newResponse;
+    }
+    var profiles = response.parseList(Profile.fromJson);
+    newResponse.data = profiles;
+    return newResponse;
+  }
+
+  Future<BaseResponse<List<Comment>>> getPostComments({
+    required String postId,
+  }) async {
+    final response = await apiClient.api.getPostComments(postId);
+    var newResponse = BaseResponse<List<Comment>>(
+      code: response.code,
+      success: response.success,
+      data: null,
+      error: response.error,
+    );
+    if (response.success == false) {
+      return newResponse;
+    }
+    var comments = response.parseList(Comment.fromJson);
+    newResponse.data = comments;
+    return newResponse;
   }
 }

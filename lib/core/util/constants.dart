@@ -25,4 +25,5 @@ class Constants {
   static const FOLLOWING_USERS_ENDPOINT = '/profile/followers';
   static const FOLLOWER_USERS_ENDPOINT = '/profile/followings';
   static const POST_LIKE_ENDPOINT = '/post-like';
+  static const COMMENT_ENDPOINT = '/comment';
 }

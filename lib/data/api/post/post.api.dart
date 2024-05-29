@@ -68,5 +68,8 @@ abstract class PostApi {
     @Path("postId") String postId,
   );
 
-
+  @GET("${Constants.API_HOST}${Constants.API_PREFIX}${Constants.COMMENT_ENDPOINT}")
+  Future<BaseResponse> getPostComments(
+    @Query("postId") String postId,
+  );
 }
