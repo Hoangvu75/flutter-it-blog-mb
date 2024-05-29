@@ -148,13 +148,42 @@ class _ReadPostPageState extends State<ReadPostPage> {
           children: [
             Expanded(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  final myProfile =
+                      context.provider.read(myProfileStateProvider);
+                  final isLiked = likeProfiles.value
+                      .any((profile) => profile.id == myProfile!.id);
+                  if (isLiked) {
+                    likeProfiles.sink.add(
+                      likeProfiles.value
+                          .where((profile) => profile.id != myProfile!.id)
+                          .toList(),
+                    );
+                  } else {
+                    likeProfiles.sink.add([myProfile!, ...likeProfiles.value]);
+                  }
+                },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
-                      Icons.favorite_border_outlined,
-                      color: colorPrimary,
+                    StreamBuilder<List<Profile>>(
+                      stream: likeProfiles.stream,
+                      builder: (context, snapshot) {
+                        final myProfile =
+                        context.provider.read(myProfileStateProvider);
+                        final isLiked = likeProfiles.value
+                            .any((profile) => profile.id == myProfile!.id);
+                        if (isLiked) {
+                          return const Icon(
+                            Icons.favorite,
+                            color: colorPrimary,
+                          );
+                        }
+                        return const Icon(
+                          Icons.favorite_border_outlined,
+                          color: colorPrimary,
+                        );
+                      }
                     ),
                     const SizedBox(width: 8),
                     Text(
@@ -261,56 +290,55 @@ class _ReadPostPageState extends State<ReadPostPage> {
                                       );
                                     }),
                               ),
-                              Builder(
-                                builder: (context) {
-                                  final commentController = TextEditingController();
-                                  return TextFormField(
-                                    controller: commentController,
-                                    style: textLargeBody,
-                                    decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
-                                      isDense: true,
-                                      hintText: "Write a comment...",
-                                      hintStyle: textLargeBody.copyWith(
-                                          color: colorGreyText),
-                                      focusColor: colorPrimary,
-                                      border: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: colorGreyText,
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(32),
+                              Builder(builder: (context) {
+                                final commentController =
+                                    TextEditingController();
+                                return TextFormField(
+                                  controller: commentController,
+                                  style: textLargeBody,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 12),
+                                    isDense: true,
+                                    hintText: "Write a comment...",
+                                    hintStyle: textLargeBody.copyWith(
+                                        color: colorGreyText),
+                                    focusColor: colorPrimary,
+                                    border: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: colorGreyText,
+                                        width: 1,
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: colorPrimary,
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(32),
-                                      ),
+                                      borderRadius: BorderRadius.circular(32),
                                     ),
-                                    cursorColor: colorPrimary,
-                                    onFieldSubmitted: (cmt) async {
-                                      final newComment = Comment(
-                                        id: null,
-                                        createdAt: DateTime.now()
-                                            .millisecondsSinceEpoch
-                                            .toString(),
-                                        content: cmt.toString(),
-                                        isRepliedComment: false,
-                                        repliedComments: [],
-                                        author: context.provider
-                                            .read(myProfileStateProvider),
-                                      );
-                                      comments.sink.add(
-                                        [newComment, ...comments.value],
-                                      );
-                                      commentController.clear();
-                                    },
-                                  );
-                                }
-                              ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: colorPrimary,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(32),
+                                    ),
+                                  ),
+                                  cursorColor: colorPrimary,
+                                  onFieldSubmitted: (cmt) async {
+                                    final newComment = Comment(
+                                      id: null,
+                                      createdAt: DateTime.now()
+                                          .millisecondsSinceEpoch
+                                          .toString(),
+                                      content: cmt.toString(),
+                                      isRepliedComment: false,
+                                      repliedComments: [],
+                                      author: context.provider
+                                          .read(myProfileStateProvider),
+                                    );
+                                    comments.sink.add(
+                                      [newComment, ...comments.value],
+                                    );
+                                    commentController.clear();
+                                  },
+                                );
+                              }),
                             ],
                           ),
                         ),
