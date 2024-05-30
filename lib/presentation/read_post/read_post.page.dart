@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/config/get_it.dart';
 import '../../core/extensions/context.extension.dart';
@@ -15,6 +16,8 @@ import '../../domain/entities/comment.dart';
 import '../../domain/entities/post.dart';
 import '../../domain/entities/profile.dart';
 import '../../domain/repository/post.repository.dart';
+import '../../infrastructure/routing/app_pages.dart';
+import '../../infrastructure/state/current_other_profile.state.dart';
 import '../../infrastructure/state/current_reading_post.state.dart';
 import '../../infrastructure/state/my_profile.state.dart';
 
@@ -84,16 +87,29 @@ class _ReadPostPageState extends State<ReadPostPage> {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  radius: 12,
-                  backgroundImage: NetworkImage(
-                    readingPost?.author?.avatarUrl ?? Constants.DEFAULT_AVATAR,
+                GestureDetector(
+                  onTap: () async {
+                    context.provider
+                        .read(currentOtherProfileStateProvider.notifier)
+                        .setProfile(readingPost?.author);
+                    await context.push(Routes.OTHER_PROFILE);
+                  },
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 12,
+                        backgroundImage: NetworkImage(
+                          readingPost?.author?.avatarUrl ??
+                              Constants.DEFAULT_AVATAR,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        "${readingPost?.author?.firstName} ${readingPost?.author?.lastName}",
+                        style: textBody,
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  "${readingPost?.author?.firstName} ${readingPost?.author?.lastName}",
-                  style: textBody,
                 ),
                 const Spacer(),
                 Text(
@@ -167,24 +183,23 @@ class _ReadPostPageState extends State<ReadPostPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     StreamBuilder<List<Profile>>(
-                      stream: likeProfiles.stream,
-                      builder: (context, snapshot) {
-                        final myProfile =
-                        context.provider.read(myProfileStateProvider);
-                        final isLiked = likeProfiles.value
-                            .any((profile) => profile.id == myProfile!.id);
-                        if (isLiked) {
+                        stream: likeProfiles.stream,
+                        builder: (context, snapshot) {
+                          final myProfile =
+                              context.provider.read(myProfileStateProvider);
+                          final isLiked = likeProfiles.value
+                              .any((profile) => profile.id == myProfile!.id);
+                          if (isLiked) {
+                            return const Icon(
+                              Icons.favorite,
+                              color: colorPrimary,
+                            );
+                          }
                           return const Icon(
-                            Icons.favorite,
+                            Icons.favorite_border_outlined,
                             color: colorPrimary,
                           );
-                        }
-                        return const Icon(
-                          Icons.favorite_border_outlined,
-                          color: colorPrimary,
-                        );
-                      }
-                    ),
+                        }),
                     const SizedBox(width: 8),
                     Text(
                       "Like",
