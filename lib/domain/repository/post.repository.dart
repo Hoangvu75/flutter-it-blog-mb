@@ -150,4 +150,28 @@ class PostRepository {
     newResponse.data = comments;
     return newResponse;
   }
+
+  Future<BaseResponse<List<Post>>> getPostsByAuthorId({
+    int? page,
+    int? size,
+    required String authorId,
+  }) async {
+    final response = await apiClient.api.getPostsByAuthor(
+      page ?? 0,
+      size ?? 10,
+      authorId,
+    );
+    var newResponse = BaseResponse<List<Post>>(
+      code: response.code,
+      success: response.success,
+      data: null,
+      error: response.error,
+    );
+    if (response.success == false) {
+      return newResponse;
+    }
+    var posts = response.parsePaginationList(Post.fromJson);
+    newResponse.data = posts;
+    return newResponse;
+  }
 }

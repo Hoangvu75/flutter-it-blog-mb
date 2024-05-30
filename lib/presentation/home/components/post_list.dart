@@ -62,16 +62,6 @@ class _PostListState extends State<PostList> {
                 posts.value.length,
                 (index) => PostItem(post: posts.value[index]),
               )
-                ..insert(
-                  2,
-                  EasyBannerAd(
-                    adId: adIdManager.admobAdIds!.bannerId!,
-                    adSize: AdSize(
-                      width: screenWidth(context).toInt(),
-                      height: 160,
-                    ),
-                  ),
-                )
                 ..add(
                   Padding(
                     padding: const EdgeInsets.all(32),

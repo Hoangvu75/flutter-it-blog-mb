@@ -48,7 +48,7 @@ class _ReadPostPageState extends State<ReadPostPage> {
                 postContentJson.value = jsonContent;
                 quillController.document = Document.fromJson(jsonContent);
               } catch (e) {
-                debugPrint(e as String?);
+                debugPrint(e.toString());
               }
             },
           ),

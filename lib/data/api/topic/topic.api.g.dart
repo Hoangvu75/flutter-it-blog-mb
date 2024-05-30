@@ -32,7 +32,7 @@ class _TopicApi implements TopicApi {
     )
             .compose(
               _dio.options,
-              'https://it-blog-fastify-hoangvu75.koyeb.app/api/topic',
+              'http://localhost:3000/api/topic',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -60,7 +60,7 @@ class _TopicApi implements TopicApi {
     )
             .compose(
               _dio.options,
-              'https://it-blog-fastify-hoangvu75.koyeb.app/api/topic/set-topics',
+              'http://localhost:3000/api/topic/set-topics',
               queryParameters: queryParameters,
               data: _data,
             )

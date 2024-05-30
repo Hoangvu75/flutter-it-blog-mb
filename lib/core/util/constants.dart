@@ -7,7 +7,8 @@ class Constants {
   static const DEFAULT_AVATAR = 'https://wntwelypmvlkugymiuxf.supabase.co/storage/v1/object/public/avatar/default-avatar.jpeg';
 
 
-  static const API_HOST = 'https://it-blog-fastify-hoangvu75.koyeb.app';
+  // static const API_HOST = 'https://it-blog-fastify-hoangvu75.koyeb.app';
+  static const API_HOST = 'http://localhost:3000';
   static const API_PREFIX = '/api';
   static const REGISTER_ENDPOINT = '/auth/register';
   static const LOGIN_ENDPOINT = '/auth/login';
@@ -19,6 +20,7 @@ class Constants {
   static const FOLLOW_ENDPOINT = '/follows/follow';
   static const UNFOLLOW_ENDPOINT = '/follows/unfollow';
   static const POST_ENDPOINT = '/post';
+  static const POST_AUTHOR_ENDPOINT = '/post/author';
   static const POST_SEARCH_ENDPOINT = '/post/search';
   static const FAVORITE_POST_ENDPOINT = '/post/favorite-post';
   static const FAVORITE_POST_ENDPOINT_2 = '/favorite-post';

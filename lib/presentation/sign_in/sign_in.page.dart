@@ -100,13 +100,6 @@ class SignInPage extends StatelessWidget {
               ),
             ),
           ),
-          EasyBannerAd(
-            adId: adIdManager.admobAdIds!.bannerId!,
-            adSize: AdSize(
-              width: screenWidth(context).toInt(),
-              height: 80,
-            ),
-          ),
         ],
       ),
     );

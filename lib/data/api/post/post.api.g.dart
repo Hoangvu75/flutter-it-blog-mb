@@ -38,7 +38,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post',
+              'http://localhost:3000/api/post',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -72,7 +72,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post/${topicId}',
+              'http://localhost:3000/api/post/${topicId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -106,7 +106,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post/search/${searchTopic}',
+              'http://localhost:3000/api/post/search/${searchTopic}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -139,7 +139,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post/favorite-post',
+              'http://localhost:3000/api/post/favorite-post',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -166,7 +166,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'https://it-blog-fastify-hoangvu75.koyeb.app/api/favorite-post/${postId}',
+              'http://localhost:3000/api/favorite-post/${postId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -193,7 +193,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'https://it-blog-fastify-hoangvu75.koyeb.app/api/favorite-post/${postId}',
+              'http://localhost:3000/api/favorite-post/${postId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -252,7 +252,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post',
+              'http://localhost:3000/api/post',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -279,7 +279,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post-like/${postId}',
+              'http://localhost:3000/api/post-like/${postId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -306,7 +306,41 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'https://it-blog-fastify-hoangvu75.koyeb.app/api/comment',
+              'http://localhost:3000/api/comment',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = BaseResponse<dynamic>.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<dynamic>> getPostsByAuthor(
+    int page,
+    int limit,
+    String authorId,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'size': limit,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<dynamic>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'http://localhost:3000/api/post/author/${authorId}',
               queryParameters: queryParameters,
               data: _data,
             )

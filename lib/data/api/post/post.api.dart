@@ -63,13 +63,23 @@ abstract class PostApi {
     @Part() List<String> topicIds,
   );
 
-  @GET("${Constants.API_HOST}${Constants.API_PREFIX}${Constants.POST_LIKE_ENDPOINT}/{postId}")
+  @GET(
+      "${Constants.API_HOST}${Constants.API_PREFIX}${Constants.POST_LIKE_ENDPOINT}/{postId}")
   Future<BaseResponse> getPostLikes(
     @Path("postId") String postId,
   );
 
-  @GET("${Constants.API_HOST}${Constants.API_PREFIX}${Constants.COMMENT_ENDPOINT}")
+  @GET(
+      "${Constants.API_HOST}${Constants.API_PREFIX}${Constants.COMMENT_ENDPOINT}")
   Future<BaseResponse> getPostComments(
     @Query("postId") String postId,
+  );
+
+  @GET(
+      "${Constants.API_HOST}${Constants.API_PREFIX}${Constants.POST_AUTHOR_ENDPOINT}/{authorId}")
+  Future<BaseResponse> getPostsByAuthor(
+    @Query("page") int page,
+    @Query("size") int limit,
+    @Path("authorId") String authorId,
   );
 }

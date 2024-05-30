@@ -116,49 +116,42 @@ class PostItem extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      Consumer(builder: (context, ref, child) {
-                        final isBookmarked = ref.watch(
-                          favoritePostsStateProvider.select(
-                            (posts) {
-                              for (var favoritePost in posts) {
-                                if (favoritePost.id == post.id) {
-                                  return true;
+                      Consumer(
+                        builder: (context, ref, child) {
+                          final isBookmarked = ref.watch(
+                            favoritePostsStateProvider.select(
+                              (posts) {
+                                for (var favoritePost in posts) {
+                                  if (favoritePost.id == post.id) {
+                                    return true;
+                                  }
                                 }
+                                return false;
+                              },
+                            ),
+                          );
+                          return IconButton(
+                            onPressed: () {
+                              if (isBookmarked) {
+                                context.provider
+                                    .read(favoritePostsStateProvider.notifier)
+                                    .removePost(post);
+                                return;
                               }
-                              return false;
-                            },
-                          ),
-                        );
-                        return IconButton(
-                          onPressed: () {
-                            if (isBookmarked) {
                               context.provider
                                   .read(favoritePostsStateProvider.notifier)
-                                  .removePost(post);
-                              return;
-                            }
-                            context.provider
-                                .read(favoritePostsStateProvider.notifier)
-                                .addPost(post);
-                          },
-                          icon: Icon(
-                            isBookmarked
-                                ? Icons.bookmark
-                                : Icons.bookmark_outline,
-                            size: 20,
-                            color: isBookmarked ? colorPrimary : colorGreyText,
-                          ),
-                        );
-                      }),
-                      const SizedBox(width: 24),
-                      const Icon(
-                        Icons.share_outlined,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 24),
-                      const Icon(
-                        Icons.more_horiz_outlined,
-                        size: 20,
+                                  .addPost(post);
+                            },
+                            icon: Icon(
+                              isBookmarked
+                                  ? Icons.bookmark
+                                  : Icons.bookmark_outline,
+                              size: 20,
+                              color:
+                                  isBookmarked ? colorPrimary : colorGreyText,
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

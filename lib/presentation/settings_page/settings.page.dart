@@ -8,9 +8,12 @@ import '../../core/ui/color.ui.dart';
 import '../../core/ui/text.ui.dart';
 import '../../core/util/constants.dart';
 import '../../core/util/time.util.dart';
+import '../../domain/entities/post.dart';
 import '../../domain/entities/profile.dart';
+import '../../domain/repository/post.repository.dart';
 import '../../domain/repository/profile.repository.dart';
 import '../../infrastructure/state/my_profile.state.dart';
+import '../widgets/post_item.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -21,13 +24,16 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final profileRepository = getIt.get<ProfileRepository>();
+  final postRepository = getIt.get<PostRepository>();
   final followingProfiles = <Profile>[].rx;
   final followerProfiles = <Profile>[].rx;
+  final myPost = <Post>[].rx;
 
   @override
   void didChangeDependencies() {
     fetchFollowingProfiles();
     fetchFollowerProfiles();
+    fetchMyPosts();
     super.didChangeDependencies();
   }
 
@@ -50,6 +56,15 @@ class _SettingsPageState extends State<SettingsPage> {
     );
     if (response.success == true && response.data != null) {
       followerProfiles.sink.add(response.data!);
+    }
+  }
+
+  Future<void> fetchMyPosts() async {
+    final response = await postRepository.getPostsByAuthorId(
+      authorId: context.provider.read(myProfileStateProvider)?.id ?? '',
+    );
+    if (response.success == true && response.data != null) {
+      myPost.sink.add(response.data!);
     }
   }
 
@@ -146,7 +161,20 @@ class _SettingsPageState extends State<SettingsPage> {
                 style: textSmallTitle.copyWith(fontWeight: FontWeight.bold),
               ),
             ),
-          )
+          ),
+          const SizedBox(height: 16),
+          StreamBuilder<List<Post>>(
+            stream: myPost.stream,
+            builder: (context, snapshot) {
+              return Column(
+                children: myPost.value
+                    .map(
+                      (post) => PostItem(post: post),
+                    )
+                    .toList(),
+              );
+            },
+          ),
         ],
       ),
     );

@@ -38,13 +38,6 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const Spacer(),
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.notifications_active_outlined,
-                    size: 24,
-                  ),
-                ),
-                IconButton(
                   onPressed: () => context.push(Routes.CREATE_POST),
                   icon: const Icon(
                     Icons.create_outlined,

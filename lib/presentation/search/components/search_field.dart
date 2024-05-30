@@ -64,10 +64,6 @@ class _SearchFieldState extends State<SearchField> {
             ),
           ),
           const SizedBox(height: 16),
-          EasyBannerAd(
-            adId: adIdManager.admobAdIds!.bannerId!,
-            adSize: AdSize.fullBanner,
-          ),
         ],
       ),
     );

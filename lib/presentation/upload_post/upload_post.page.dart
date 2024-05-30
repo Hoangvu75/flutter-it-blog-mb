@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_scale_tap/flutter_scale_tap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../core/config/get_it.dart';
@@ -63,6 +65,7 @@ class _UploadPostPageState extends State<UploadPostPage> {
           padding: const EdgeInsets.only(left: 32, right: 32, bottom: 16),
           child: ScaleTap(
             onPressed: () async {
+              EasyLoading.show();
               context.provider.read(creatingPostStateProvider.notifier)
                 ..setTitle(titleController.text)
                 ..setDescription(descriptionController.text)
@@ -73,6 +76,9 @@ class _UploadPostPageState extends State<UploadPostPage> {
               );
               await fileHelper.deleteContentFile();
               await fileHelper.deleteFile(thumbnailImage.value!.path);
+              EasyLoading.dismiss();
+              context.pop();
+              context.pop();
             },
             child: Container(
               width: double.infinity,
