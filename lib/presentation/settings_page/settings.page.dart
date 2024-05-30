@@ -107,14 +107,52 @@ class _SettingsPageState extends State<SettingsPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Column(
-                children: [
-                  Text(
-                    'Followings',
-                    style: textLargeBody.copyWith(color: colorGreyText),
-                  ),
-                  const SizedBox(height: 6),
-                  StreamBuilder<List<Profile>>(
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => Dialog(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 16),
+                            Text(
+                              "Following people",
+                              style: textTitle.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Column(
+                              children: followingProfiles.value
+                                  .map(
+                                    (profile) => ListTile(
+                                      leading: CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            profile.avatarUrl ??
+                                                Constants.DEFAULT_AVATAR),
+                                      ),
+                                      title: Text(
+                                        '${profile.firstName} ${profile.lastName}',
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: Column(
+                  children: [
+                    Text(
+                      'Followings',
+                      style: textLargeBody.copyWith(color: colorGreyText),
+                    ),
+                    const SizedBox(height: 6),
+                    StreamBuilder<List<Profile>>(
                       stream: followingProfiles.stream,
                       builder: (context, snapshot) {
                         return Text(
@@ -122,32 +160,73 @@ class _SettingsPageState extends State<SettingsPage> {
                           style:
                               textTitle.copyWith(fontWeight: FontWeight.bold),
                         );
-                      }),
-                ],
+                      },
+                    ),
+                  ],
+                ),
               ),
               Container(
                 width: 1,
                 height: 60,
                 color: colorLightGrey,
               ),
-              Column(
-                children: [
-                  const SizedBox(height: 6),
-                  Text(
-                    'Followers',
-                    style: textLargeBody.copyWith(color: colorGreyText),
-                  ),
-                  const SizedBox(height: 6),
-                  StreamBuilder<List<Profile>>(
-                      stream: followerProfiles.stream,
-                      builder: (context, snapshot) {
-                        return Text(
-                          '${followerProfiles.value.length}',
-                          style:
-                              textTitle.copyWith(fontWeight: FontWeight.bold),
-                        );
-                      }),
-                ],
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => Dialog(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 16),
+                            Text(
+                              "Follower people",
+                              style: textTitle.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Column(
+                              children: followerProfiles.value
+                                  .map(
+                                    (profile) => ListTile(
+                                      leading: CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            profile.avatarUrl ??
+                                                Constants.DEFAULT_AVATAR),
+                                      ),
+                                      title: Text(
+                                        '${profile.firstName} ${profile.lastName}',
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: Column(
+                  children: [
+                    const SizedBox(height: 6),
+                    Text(
+                      'Followers',
+                      style: textLargeBody.copyWith(color: colorGreyText),
+                    ),
+                    const SizedBox(height: 6),
+                    StreamBuilder<List<Profile>>(
+                        stream: followerProfiles.stream,
+                        builder: (context, snapshot) {
+                          return Text(
+                            '${followerProfiles.value.length}',
+                            style:
+                                textTitle.copyWith(fontWeight: FontWeight.bold),
+                          );
+                        }),
+                  ],
+                ),
               ),
             ],
           ),
