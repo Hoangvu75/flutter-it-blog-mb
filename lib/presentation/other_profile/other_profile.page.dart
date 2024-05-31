@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_scale_tap/flutter_scale_tap.dart';
 
 import '../../core/config/get_it.dart';
@@ -12,9 +10,11 @@ import '../../core/util/constants.dart';
 import '../../core/util/time.util.dart';
 import '../../domain/entities/post.dart';
 import '../../domain/entities/profile.dart';
+import '../../domain/repository/follow.repository.dart';
 import '../../domain/repository/post.repository.dart';
 import '../../domain/repository/profile.repository.dart';
 import '../../infrastructure/state/current_other_profile.state.dart';
+import '../../infrastructure/state/my_profile.state.dart';
 import '../widgets/post_item.dart';
 
 class OtherProfilePage extends StatefulWidget {
@@ -27,6 +27,7 @@ class OtherProfilePage extends StatefulWidget {
 class _OtherProfilePageState extends State<OtherProfilePage> {
   final profileRepository = getIt.get<ProfileRepository>();
   final postRepository = getIt.get<PostRepository>();
+  final followRepository = getIt.get<FollowRepository>();
   final followingProfiles = <Profile>[].rx;
   final followerProfiles = <Profile>[].rx;
   final myPost = <Post>[].rx;
@@ -61,6 +62,10 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
     );
     if (response.success == true && response.data != null) {
       followerProfiles.sink.add(response.data!);
+    }
+    if (response.data != null) {
+      isFollowing.value = response.data!.any((element) =>
+          element.id == context.provider.read(myProfileStateProvider)!.id);
     }
   }
 
@@ -168,6 +173,13 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                         : ScaleTap(
                             onPressed: () {
                               isFollowing.value = !isFollowing.value;
+                              followRepository.follow(context.provider
+                                  .read(currentOtherProfileStateProvider)!
+                                  .id!);
+                              followerProfiles.sink.add([
+                                ...followerProfiles.value,
+                                context.provider.read(myProfileStateProvider)!
+                              ]);
                             },
                             child: Container(
                               width: 120,
@@ -243,8 +255,8 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                           builder: (context, snapshot) {
                             return Text(
                               '${followingProfiles.value.length}',
-                              style:
-                                  textTitle.copyWith(fontWeight: FontWeight.bold),
+                              style: textTitle.copyWith(
+                                  fontWeight: FontWeight.bold),
                             );
                           }),
                     ],
