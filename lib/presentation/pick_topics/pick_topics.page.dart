@@ -76,14 +76,14 @@ class PickTopicsPage extends StatelessWidget {
                   ),
                   child: Builder(
                     builder: (context) {
-                      final isFirst = context.provider
+                      final isUsing = context.provider
                           .read(myProfileStateProvider)
                           ?.favoriteTopics
-                          ?.isEmpty;
-                      if (isFirst == true) {
-                        return const ContinueButton();
+                          ?.isNotEmpty;
+                      if (isUsing == true) {
+                        return const ConfirmButton();
                       }
-                      return const ConfirmButton();
+                      return const ContinueButton();
                     },
                   ),
                 ),

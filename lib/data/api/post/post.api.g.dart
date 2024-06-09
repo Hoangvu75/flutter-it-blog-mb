@@ -38,7 +38,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/post',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -72,7 +72,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/post/${topicId}',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post/${topicId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -106,7 +106,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/post/search/${searchTopic}',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post/search/${searchTopic}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -139,7 +139,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/post/favorite-post',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post/favorite-post',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -166,7 +166,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/favorite-post/${postId}',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/favorite-post/${postId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -193,7 +193,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/favorite-post/${postId}',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/favorite-post/${postId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -252,7 +252,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/post',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -279,7 +279,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/post-like/${postId}',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post-like/${postId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -306,7 +306,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/comment',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/comment',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -340,7 +340,7 @@ class _PostApi implements PostApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/post/author/${authorId}',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/post/author/${authorId}',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -33,7 +33,7 @@ class _AuthApi implements AuthApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/auth/register',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/auth/register',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -61,7 +61,7 @@ class _AuthApi implements AuthApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/auth/login',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/auth/login',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -89,7 +89,7 @@ class _AuthApi implements AuthApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/auth/google-login',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/auth/google-login',
               queryParameters: queryParameters,
               data: _data,
             )

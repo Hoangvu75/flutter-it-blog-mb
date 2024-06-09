@@ -8,6 +8,7 @@ import '../../../core/extensions/context.extension.dart';
 import '../../../core/ui/color.ui.dart';
 import '../../../core/ui/text.ui.dart';
 import '../../../domain/repository/topic.repository.dart';
+import '../../../infrastructure/routing/app_pages.dart';
 import '../../../infrastructure/state/my_profile.state.dart';
 import '../../../infrastructure/state/selected_topics.state.dart';
 

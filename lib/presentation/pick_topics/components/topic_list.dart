@@ -38,10 +38,6 @@ class _TopicListState extends State<TopicList> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        EasyBannerAd(
-          adId: adIdManager.admobAdIds!.bannerId!,
-          adSize: AdSize.fullBanner,
-        ),
         Padding(
           padding: const EdgeInsets.all(16),
           child: StreamBuilder<List<Topic>>(

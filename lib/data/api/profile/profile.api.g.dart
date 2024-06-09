@@ -33,7 +33,7 @@ class _ProfileApi implements ProfileApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/profile',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/profile',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -66,7 +66,7 @@ class _ProfileApi implements ProfileApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/profile/most-followed',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/profile/most-followed',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -100,7 +100,7 @@ class _ProfileApi implements ProfileApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/profile/followers/${profileId}',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/profile/followers/${profileId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -134,7 +134,7 @@ class _ProfileApi implements ProfileApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/profile/followings/${profileId}',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/profile/followings/${profileId}',
               queryParameters: queryParameters,
               data: _data,
             )

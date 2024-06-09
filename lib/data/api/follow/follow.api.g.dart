@@ -36,7 +36,7 @@ class _FollowApi implements FollowApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/follows/follow/${id}',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/follows/follow/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -67,7 +67,7 @@ class _FollowApi implements FollowApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/follows/unfollow/${id}',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/follows/unfollow/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -96,7 +96,7 @@ class _FollowApi implements FollowApi {
     )
             .compose(
               _dio.options,
-              'http://localhost:3000/api/follows/follow',
+              'https://it-blog-fastify-hoangvu75.koyeb.app/api/follows/follow',
               queryParameters: queryParameters,
               data: _data,
             )

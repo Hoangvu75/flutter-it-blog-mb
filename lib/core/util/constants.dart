@@ -7,8 +7,8 @@ class Constants {
   static const DEFAULT_AVATAR = 'https://wntwelypmvlkugymiuxf.supabase.co/storage/v1/object/public/avatar/default-avatar.jpeg';
 
 
-  // static const API_HOST = 'https://it-blog-fastify-hoangvu75.koyeb.app';
-  static const API_HOST = 'http://localhost:3000';
+  static const API_HOST = 'https://it-blog-fastify-hoangvu75.koyeb.app';
+  // static const API_HOST = 'http://localhost:3000';
   static const API_PREFIX = '/api';
   static const REGISTER_ENDPOINT = '/auth/register';
   static const LOGIN_ENDPOINT = '/auth/login';
