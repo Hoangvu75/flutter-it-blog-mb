@@ -1,20 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/config/get_it.dart';
 import '../../core/extensions/context.extension.dart';
 import '../../core/extensions/rx.extension.dart';
 import '../../core/ui/color.ui.dart';
 import '../../core/ui/screen.ui.dart';
 import '../../core/util/constants.dart';
+import '../../domain/repository/profile.repository.dart';
+import '../../infrastructure/routing/app_pages.dart';
 import '../../infrastructure/state/my_profile.state.dart';
 import '../home/home.page.dart';
 import '../library/library.page.dart';
 import '../search/search.page.dart';
 import '../settings_page/settings.page.dart';
 
-class MainPage extends StatelessWidget {
-  MainPage({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   final currentIndex = 0.rx;
+  final profileRepository = getIt.get<ProfileRepository>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> setProfile() async {
+    final profileRes = await profileRepository.getProfile();
+    AppPages.navKey.currentContext?.provider
+        .read(myProfileStateProvider.notifier)
+        .setProfile(profileRes.data!);
+  }
 
   @override
   Widget build(BuildContext context) {

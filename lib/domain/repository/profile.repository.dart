@@ -14,6 +14,19 @@ class ProfileRepository {
     return response;
   }
 
+  Future<BaseResponse<Profile>> getProfile() async {
+    final response = await apiClient.api.getProfile();
+    var newResponse = BaseResponse<Profile>(
+      code: response.code,
+      success: response.success,
+      data: null,
+      error: response.error,
+    );
+    final profile = response.parse(Profile.fromJson);
+    newResponse.data = profile;
+    return newResponse;
+  }
+
   Future<BaseResponse<List<MostFollowedProfile>>> getMostFollowedProfiles({
     required int page,
     required int size,

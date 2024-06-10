@@ -15,7 +15,9 @@ class ContinueButton extends StatelessWidget {
       child: Material(
         color: colorGreen,
         child: InkWell(
-          onTap: () => context.go(Routes.MAIN),
+          onTap: () {
+            context.go(Routes.MAIN);
+          },
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Text(
