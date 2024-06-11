@@ -13,46 +13,46 @@ import '../../infrastructure/routing/app_pages.dart';
 import '../../infrastructure/state/creating_post.state.dart';
 
 class CreatePostPage extends StatefulWidget {
-  const CreatePostPage({super.key});
+    const CreatePostPage({super.key});
 
-  @override
-  State<CreatePostPage> createState() => _CreatePostPageState();
+    @override
+    State<CreatePostPage> createState() => _CreatePostPageState();
 }
 
 class _CreatePostPageState extends State<CreatePostPage> {
-  final quillController = QuillController.basic();
-  var contentFile = null as File?;
-  final fileHelper = FileHelper();
+    final quillController = QuillController.basic();
+    var contentFile = null as File?;
+    final fileHelper = FileHelper();
 
-  @override
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Create new post",
-          style: textTitle.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              contentFile = await fileHelper.createFile(
-                jsonEncode(quillController.document.toDelta().toJson())
-                    .toString(),
-              );
-              navContext?.provider
-                  .read(creatingPostStateProvider.notifier)
-                  .setContent(
-                    contentFile,
-                  );
-              await navContext?.push(Routes.UPLOAD_POST);
-            },
-            icon: const Icon(
-              Icons.check,
-              size: 24,
+        appBar: AppBar(
+            title: Text(
+                "Create new post",
+                style: textTitle.copyWith(
+                    fontWeight: FontWeight.w600,
+                ),
             ),
-          ),
+        actions: [
+            IconButton(
+                onPressed: () async {
+                    contentFile = await fileHelper.createFile(
+                        jsonEncode(quillController.document.toDelta().toJson())
+                        .toString(),
+                    );
+                    navContext?.provider
+                        .read(creatingPostStateProvider.notifier)
+                        .setContent(
+                            contentFile,
+                        );
+                    await navContext?.push(Routes.UPLOAD_POST);
+                },
+                icon: const Icon(
+                    Icons.check,
+                    size: 24,
+                ),
+            ),
         ],
       ),
       body: Column(
