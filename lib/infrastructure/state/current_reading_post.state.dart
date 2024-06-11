@@ -6,16 +6,16 @@ part 'current_reading_post.state.g.dart';
 
 @Riverpod(keepAlive: true)
 class CurrentReadingPost extends _$CurrentReadingPost {
-  @override
-  Post? build() {
-    return null;
-  }
+    @override
+    Post? build() {
+        return null;
+    }
 
-  void setPost(Post post) {
-    state = post;
-  }
+    void clearPost() {
+        state = null;
+    }
 
-  void clearPost() {
-    state = null;
-  }
+    void setPost(Post post) {
+        state = post;
+    }
 }
